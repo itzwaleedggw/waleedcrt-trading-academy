@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WALEEDCRT Trading Academy v0.6</title>
+<style>
+:root{--bg:#070b10;--card:#0e151d;--card2:#121c25;--border:#26333e;--text:#eef4f8;--muted:#8fa0ad;--blue:#2f6df6;--green:#20b56a;--red:#ef4f4f;--gold:#f3a51b}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#06090d,#0b1118);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}button{font:inherit;cursor:pointer}.app{min-height:100vh;padding-bottom:76px}.top{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(7,11,16,.94);backdrop-filter:blur(10px);z-index:5}.brand{font-weight:800;letter-spacing:.5px}.brand small{display:block;font-size:9px;color:var(--muted);letter-spacing:1.3px}.content{max-width:1100px;margin:auto;padding:20px}.page{display:none}.page.active{display:block}.hero{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:18px}.eyebrow{color:#6f9cff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px}.h1{font-size:28px;font-weight:800;margin:5px 0}.sub{color:var(--muted);font-size:14px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.grid2{display:grid;grid-template-columns:2fr 1fr;gap:12px}.card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:14px;padding:16px}.label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px}.value{font-size:24px;font-weight:800;margin-top:5px}.positive{color:var(--green)}.negative{color:var(--red)}.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:750;color:#fff;background:var(--blue)}.btn.green{background:var(--green)}.btn.red{background:var(--red)}.btn.ghost{background:transparent;border:1px solid var(--border)}.actions{display:flex;gap:9px;flex-wrap:wrap}.chart{height:280px;border-radius:12px;border:1px solid var(--border);overflow:hidden;background:#091017;position:relative}.chart svg{width:100%;height:100%}.chart-label{position:absolute;top:10px;left:12px;color:var(--muted);font-size:11px}.course{display:flex;gap:13px;align-items:center;margin:9px 0;padding:12px;border:1px solid var(--border);border-radius:11px}.course-icon{width:40px;height:40px;border-radius:10px;background:#182536;display:grid;place-items:center}.course-main{flex:1}.course-title{font-weight:700;font-size:14px}.bar{height:6px;background:#202b34;border-radius:8px;margin-top:7px;overflow:hidden}.bar i{display:block;height:100%;background:var(--green)}.trade-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}.field input,.field select{width:100%;background:#081017;border:1px solid var(--border);color:var(--text);padding:11px;border-radius:8px}.trade-buttons{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.position{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--border)}.bottom{position:fixed;bottom:0;left:0;right:0;height:68px;background:rgba(7,11,16,.97);border-top:1px solid var(--border);display:flex;justify-content:center;z-index:6}.nav{width:min(600px,100%);display:grid;grid-template-columns:repeat(5,1fr)}.nav button{background:none;border:0;color:var(--muted);font-size:11px}.nav button.active{color:#6f9cff}.nav span{display:block;font-size:20px;margin-bottom:2px}.tabs{display:flex;gap:7px;margin:14px 0}.tab{padding:8px 12px;border:1px solid var(--border);border-radius:20px;color:var(--muted);background:transparent}.tab.active{background:#17253c;color:#fff;border-color:#2c5ab3}.practice{display:grid;grid-template-columns:1fr 1fr;gap:12px}.scenario-chart{height:220px}.choice{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.mini{font-size:12px;color:var(--muted)}.notice{padding:11px;border-radius:10px;background:#102015;border:1px solid #1f5136;color:#a9e8c7;font-size:12px;margin-top:10px}.footer-note{text-align:center;color:var(--muted);font-size:11px;margin:24px 0}
+@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.practice{grid-template-columns:1fr}.statgrid{grid-template-columns:1fr 1fr}.hero{display:block}.hero .actions{margin-top:12px}}
+@media(max-width:480px){.content{padding:15px}.grid{grid-template-columns:1fr 1fr}.value{font-size:20px}.top{padding:0 14px}.trade-form{grid-template-columns:1fr}.statgrid{grid-template-columns:1fr 1fr}}
+</style>
+</head><body><div id="auth" class="auth"><div class="authbox"><div class="eyebrow">WALEEDCRT TRADING ACADEMY</div><div class="h1" style="font-size:30px">Learn. Practice. Trade. Master.</div><p class="sub">Create a demo profile and keep your progress separate from other traders on this device.</p><input id="authName" placeholder="Display name" value="WALEEDCRT"><input id="authUser" placeholder="Username" value="itzwaleedggw"><input id="authEmail" type="email" placeholder="Email (cloud mode)"><input id="authPassword" type="password" placeholder="Password (cloud mode)"><div class="actions"><button class="btn green" onclick="enterApp()">Enter Academy →</button><button class="btn ghost" onclick="cloudSignUp()">Create Cloud Account</button><button class="btn ghost" onclick="cloudLogin()">Log In</button></div><div class="mini" style="margin-top:12px">Local demo mode works immediately. When Supabase is configured, cloud accounts and sync become available.</div></div></div>
+<div class="app">
+<header class="top"><div class="brand">▥ WALEEDCRT<small>LEARN. PRACTICE. TRADE. MASTER.</small></div><div>🔔</div></header>
+<main class="content">
+<section id="home" class="page active">
+<div class="hero"><div><div class="eyebrow">Trading Academy</div><div class="h1">Welcome back, Trader.</div><div class="sub">Build skill before risking real capital.</div></div><div class="actions"><button class="btn" onclick="go('trade')">Trade Demo →</button><button class="btn ghost" onclick="go('learn')">Continue Learning</button></div></div>
+<div class="grid"><div class="card"><div class="label">Demo balance</div><div class="value" id="balance">$10,000.00</div></div><div class="card"><div class="label">Today's P/L</div><div class="value positive" id="today">+$245.50</div></div><div class="card"><div class="label">Open trades</div><div class="value" id="openCount">1</div></div><div class="card"><div class="label">Learning</div><div class="value">58%</div></div></div>
+<div class="grid2" style="margin-top:12px"><div class="card"><div class="label">Equity curve</div><div class="chart" style="margin-top:10px"><div class="chart-label">Demo account — 30 days</div><svg viewBox="0 0 800 280" preserveAspectRatio="none"><polyline points="0,230 80,210 150,220 230,175 300,190 380,145 450,160 520,120 600,135 680,80 800,55" fill="none" stroke="#4b8cff" stroke-width="4"/><line x1="0" y1="245" x2="800" y2="245" stroke="#26333e"/></svg></div></div><div class="card"><div class="label">Current position</div><div class="position"><div><b>XAUUSD</b><div class="mini">BUY · 0.50 lot</div></div><div class="positive">+$95.30</div></div><div class="position"><div><b>EURUSD</b><div class="mini">WATCHLIST</div></div><div>→</div></div><div class="notice">Demo only. No real money is used.</div></div></div>
+<div class="card" style="margin-top:12px"><div class="label">Continue learning</div><div class="course"><div class="course-icon">◈</div><div class="course-main"><div class="course-title">CRT — Candle Range Theory</div><div class="mini">Liquidity & range mechanics</div><div class="bar"><i style="width:65%"></i></div></div><b>65%</b></div></div>
+</section>
+<section id="learn" class="page"><div class="hero"><div><div class="eyebrow">Learn</div><div class="h1">Build your trading foundation.</div><div class="sub">Short lessons, visual examples and quizzes.</div></div></div><div class="tabs"><button class="tab active">All courses</button><button class="tab">In progress</button><button class="tab">Completed</button></div><div class="card" id="courses"></div><div class="footer-note">Education is for learning purposes, not financial advice.</div></section>
+<section id="trade" class="page"><div class="hero"><div><div class="eyebrow">Demo Terminal</div><div class="h1">XAUUSD <span style="color:var(--gold)">★</span></div><div class="sub" id="price">$2,356.45 · Gold / US Dollar</div></div></div><div class="grid2"><div class="card"><div class="chart" id="marketChart"><div class="chart-label">XAUUSD · 15m · Simulated feed</div><canvas id="priceCanvas"></canvas></div><div class="tabs" style="margin:10px 0"><button class="tab active" onclick="setTf(15,this)">15m</button><button class="tab" onclick="setTf(60,this)">1H</button><button class="tab" onclick="setTf(240,this)">4H</button></div><div class="trade-buttons"><button class="btn green" onclick="place('BUY')">BUY</button><button class="btn red" onclick="place('SELL')">SELL</button></div><div class="notice">Simulation feed • Prices are generated locally for practice. Real market data will be connected in a later release.</div><div class="trade-form"><div class="field"><label>Entry</label><input id="entry" value="2356.45"></div><div class="field"><label>Risk %</label><input id="risk" value="1.00" type="number" step="0.1"></div><div class="field"><label>Stop Loss</label><input id="sl" value="2346.00"></div><div class="field"><label>Take Profit</label><input id="tp" value="2376.00"></div><div class="field"><label>Lot size</label><input id="lot" value="0.50"></div><div class="field"><label>Setup</label><select><option>CRT</option><option>ICT</option><option>Structure + Liquidity</option></select></div></div><button class="btn ghost" style="width:100%;margin-top:12px" onclick="calculateRisk()">CALCULATE POSITION SIZE</button><button class="btn" style="width:100%;margin-top:8px" onclick="place('MARKET')">PLACE DEMO TRADE</button><div id="tradeMsg"></div></div><div class="card"><div class="label">Account snapshot</div><div class="statgrid" style="margin:8px 0 18px"><div class="card"><div class="mini">Balance</div><b id="tradeBalance">$10,000.00</b></div><div class="card"><div class="mini">Equity</div><b id="tradeEquity">$10,000.00</b></div><div class="card"><div class="mini">Open P/L</div><b id="tradeOpenPnl">$0.00</b></div></div><div class="label">Open positions</div><div id="positions"><div class="position"><div><b>XAUUSD</b><div class="mini">BUY · 0.50 lot</div></div><div class="positive">+$95.30</div></div></div><div class="label" style="margin-top:18px">Risk preview</div><div class="statgrid" style="margin-top:8px"><div class="card"><div class="mini">Risk</div><b>$100</b></div><div class="card"><div class="mini">Target</div><b class="positive">$200</b></div><div class="card"><div class="mini">R:R</div><b>1:2</b></div></div></div></div></section>
+<section id="stats" class="page"><div class="hero"><div><div class="eyebrow">Performance</div><div class="h1">Your trading statistics.</div><div class="sub">Measure execution, risk and consistency.</div></div></div><div class="grid"><div class="card"><div class="label">Total P/L</div><div id="statPnl" class="value positive">$0.00</div></div><div class="card"><div class="label">Win rate</div><div id="statWin" class="value">0%</div></div><div class="card"><div class="label">Total trades</div><div id="statTrades" class="value">0</div></div><div class="card"><div class="label">Profit factor</div><div id="statPF" class="value">0.00</div></div></div><div class="card" style="margin-top:12px"><div class="label">Statistics</div><div class="statgrid" style="margin-top:12px"><div><div class="mini">Gross profit</div><b id="grossProfit" class="positive">$0.00</b></div><div><div class="mini">Gross loss</div><b id="grossLoss" class="negative">$0.00</b></div><div><div class="mini">Best trade</div><b id="bestTrade" class="positive">$0.00</b></div><div><div class="mini">Worst trade</div><b id="worstTrade" class="negative">$0.00</b></div><div><div class="mini">Max drawdown</div><b id="drawdown">0%</b></div><div><div class="mini">Average R:R</div><b id="avgRR">0.00</b></div></div></div><div class="card" style="margin-top:12px"><div class="label">Recent demo trades</div><div id="historyList" style="margin-top:8px"></div></div><div class="card" style="margin-top:12px"><div class="label">CRT Practice Mode</div><div class="h1" style="font-size:21px">Test your decision-making.</div><div class="sub">Study the chart, choose a direction, then reveal the outcome.</div><button class="btn" style="margin-top:12px" onclick="practice()">Start Practice →</button></div></section>
+<section id="profile" class="page"><div class="hero"><div><div class="eyebrow">Profile</div><div class="h1">WALEEDCRT</div><div class="sub" id="profileLine">@itzwaleedggw · Demo Trader</div><button class="btn ghost" style="margin-top:12px" onclick="switchUser()">Switch demo profile</button></div></div><div class="grid2"><div class="card"><div class="label">Learning progress</div><div class="value">58%</div><div class="bar" style="margin:10px 0 18px"><i style="width:58%"></i></div><div class="position"><span>Completed courses</span><b>4 / 8</b></div><div class="position"><span>Quizzes passed</span><b>12 / 20</b></div></div><div class="card"><div class="label">Demo account</div><div class="value">$10,000</div><button class="btn red" style="margin-top:14px" onclick="resetAccount()">Reset Demo Account</button></div></div><div class="card" style="margin-top:12px"><div class="label">Settings</div><div class="position"><span>Notifications</span><b>On</b></div><div class="position"><span>Theme</span><b>Dark</b></div><div class="position"><span>About WALEEDCRT</span><b>→</b></div></div></section>
+<section id="practice" class="page"><div class="hero"><div><div class="eyebrow">CRT Practice Mode</div><div class="h1">What would you do here?</div><div class="sub">Choose before seeing the outcome.</div></div></div><div class="practice"><div class="card"><div class="label">XAUUSD · 15m</div><div class="chart scenario-chart"><svg viewBox="0 0 800 220" preserveAspectRatio="none"><line x1="0" y1="45" x2="800" y2="45" stroke="#ef4f4f" stroke-dasharray="8 8"/><line x1="0" y1="180" x2="800" y2="180" stroke="#31d18a" stroke-dasharray="8 8"/><polyline points="0,155 70,125 130,150 200,90 260,120 330,65 400,105 465,55 520,110 585,75 650,125 710,85 800,115" fill="none" stroke="#4b8cff" stroke-width="4"/></svg></div><div class="choice"><button class="btn green" onclick="reveal('BUY')">BUY</button><button class="btn red" onclick="reveal('SELL')">SELL</button><button class="btn ghost" onclick="reveal('WAIT')">WAIT</button></div></div><div class="card" id="result"><div class="label">Scenario</div><div class="h1" style="font-size:21px">Liquidity sweep → expansion</div><p class="sub">CRT High has been swept. Identify the likely next draw on liquidity.</p><div class="notice">Hint: think in terms of range, liquidity and displacement.</div></div></div></section><div style="max-width:1100px;margin:0 auto;padding:0 20px 20px"><button id="logoutBtn" class="btn ghost" style="display:none;width:100%" onclick="cloudLogout()">LOG OUT OF CLOUD ACCOUNT</button></div></main>
+<nav class="bottom"><div class="nav"><button data-page="home" class="active" onclick="go('home')"><span>⌂</span>Home</button><button data-page="learn" onclick="go('learn')"><span>▤</span>Learn</button><button data-page="trade" onclick="go('trade')"><span>⌁</span>Trade</button><button data-page="stats" onclick="go('stats')"><span>◔</span>Stats</button><button data-page="profile" onclick="go('profile')"><span>♙</span>Profile</button></div></nav>
+</div>
+<script>
+const CONFIG={supabaseUrl:'',supabasePublishableKey:'',marketDataProvider:'simulated'};
+const APP_VERSION='v0.6';
+let cloudMode=false;
+async function initCloud(){ if(!CONFIG.supabaseUrl||!CONFIG.supabasePublishableKey)return; try{ const s=document.createElement('script'); s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'; s.onload=async()=>{ window.sb=window.supabase.createClient(CONFIG.supabaseUrl,CONFIG.supabasePublishableKey); cloudMode=true; const {data}=await sb.auth.getSession(); if(data.session){user={name:data.session.user.user_metadata?.display_name||data.session.user.email.split('@')[0],username:data.session.user.user_metadata?.username||data.session.user.email.split('@')[0]}; localStorage.setItem('waleedcrt_user',JSON.stringify(user)); document.getElementById('auth').style.display='none'; render(); } }; document.head.appendChild(s);}catch(e){console.warn('Cloud init failed',e)} }
+initCloud();
+const KEY='waleedcrt_v05';
+let user=JSON.parse(localStorage.getItem('waleedcrt_user')||'null');
+const defaults={balance:10000,equity:10000,price:2356.45,positions:[],history:[],today:0};
+let state=JSON.parse(localStorage.getItem(KEY)||'null')||structuredClone(defaults);
+const courses=[['▣','Trading Fundamentals','Beginner','80%'],['◈','CRT — Candle Range Theory','Core strategy','65%'],['⌁','ICT Concepts','Smart Money','40%'],['⌗','Market Structure','Trends & patterns','60%'],['◌','Liquidity','Pools & sweeps','55%'],['▤','FVG & Order Blocks','Imbalance trading','30%'],['◉','Risk Management','Protect your capital','70%'],['♟','Trading Psychology','Mindset & discipline','25%']];
+document.getElementById('courses').innerHTML=courses.map(c=>`<div class="course"><div class="course-icon">${c[0]}</div><div class="course-main"><div class="course-title">${c[1]}</div><div class="mini">${c[2]}</div><div class="bar"><i style="width:${c[3]}"></i></div></div><b>${c[3]}</b></div>`).join('');
+async function enterApp(){const name=(document.getElementById('authName').value||'Trader').trim();const username=(document.getElementById('authUser').value||'trader').trim().replace(/^@/,'');user={name,username};localStorage.setItem('waleedcrt_user',JSON.stringify(user));document.getElementById('auth').style.display='none';render();}
+async function cloudSignUp(){if(!window.sb)return msg('Cloud authentication is not configured yet. Local demo mode is available.','negative');const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;if(!email||password.length<6)return msg('Enter a valid email and a password of at least 6 characters.','negative');const display_name=document.getElementById('authName').value.trim()||'Trader',username=document.getElementById('authUser').value.trim().replace(/^@/,'');const {data,error}=await sb.auth.signUp({email,password,options:{data:{display_name,username}}});if(error)return msg(error.message,'negative');msg(data.session?'Cloud account created and logged in.':'Account created. Check your email to confirm.');}
+async function cloudLogin(){if(!window.sb)return msg('Cloud authentication is not configured yet.','negative');const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;const {data,error}=await sb.auth.signInWithPassword({email,password});if(error)return msg(error.message,'negative');user={name:data.user.user_metadata?.display_name||'Trader',username:data.user.user_metadata?.username||email.split('@')[0]};localStorage.setItem('waleedcrt_user',JSON.stringify(user));document.getElementById('auth').style.display='none';render();}
+async function cloudLogout(){if(window.sb)await sb.auth.signOut();user=null;localStorage.removeItem('waleedcrt_user');location.reload();}
+function switchUser(){document.getElementById('auth').style.display='flex';}
+if(user)document.getElementById('auth').style.display='none';
+function save(){localStorage.setItem(KEY,JSON.stringify(state)); if(cloudMode&&window.sb&&user) syncProfile();}
+let syncBusy=false; async function syncProfile(){if(syncBusy)return; syncBusy=true; try{const {data:au}=await sb.auth.getUser(); if(!au.user)return; await sb.from('profiles').upsert({id:au.user.id,username:user.username,display_name:user.name,updated_at:new Date().toISOString()}); await sb.from('demo_accounts').upsert({user_id:au.user.id,balance:state.balance,equity:state.equity,updated_at:new Date().toISOString()},{onConflict:'user_id'});}}catch(e){console.warn('Profile sync failed',e)} finally{syncBusy=false}}
+function fmt(n){return Number(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+function msg(text,type=''){const el=document.getElementById('toast');if(!el)return;el.textContent=text;el.className='toast '+type;el.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.style.display='none',3000)}
+function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const el=document.getElementById(page);if(el)el.classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));render();window.scrollTo({top:0,behavior:'smooth'})}
+function calcPnL(pos){const diff=pos.side==='BUY'?state.price-pos.entry:pos.entry-state.price;return diff*pos.lot*100}
+function updateEquity(){let floating=state.positions.reduce((a,p)=>a+calcPnL(p),0);state.equity=state.balance+floating}
+function closePosition(id,reason='Manual'){const i=state.positions.findIndex(p=>p.id===id);if(i<0)return;const p=state.positions[i],pnl=calcPnL(p);state.balance+=pnl;state.today+=pnl;state.history.unshift({...p,exit:state.price,pnl,reason,closedAt:new Date().toISOString()});state.positions.splice(i,1);updateEquity();save();render()}
+function checkPositions(){const copy=[...state.positions];copy.forEach(p=>{if(p.side==='BUY'&&(state.price<=p.sl||state.price>=p.tp)){const hit=state.price<=p.sl?'SL':'TP';closePosition(p.id,hit)}else if(p.side==='SELL'&&(state.price>=p.sl||state.price<=p.tp)){const hit=state.price>=p.sl?'SL':'TP';closePosition(p.id,hit)}})}
+function place(side){const entry=Number(document.getElementById('entry').value)||state.price,sl=Number(document.getElementById('sl').value),tp=Number(document.getElementById('tp').value),lot=Number(document.getElementById('lot').value)||0.01;if(!sl||!tp||lot<=0)return msg('Enter valid SL, TP and lot size.','negative');if(side==='BUY'&&(sl>=entry||tp<=entry))return msg('For BUY: SL must be below entry and TP above entry.','negative');if(side==='SELL'&&(sl<=entry||tp>=entry))return msg('For SELL: SL must be above entry and TP below entry.','negative');const risk=Math.abs(entry-sl)*lot*100;if(risk>state.balance*0.1)return msg('Risk is above 10% of your demo balance. Reduce lot size.','negative');state.positions.push({id:Date.now(),symbol:'XAUUSD',side,entry,sl,tp,lot,openedAt:new Date().toISOString()});save();render();msg(side+' demo position opened.');}
+function market(side){document.getElementById('entry').value=state.price.toFixed(2);place(side)}
+function resetAccount(){if(!confirm('Reset your demo account and trade history?'))return;state=structuredClone(defaults);save();render();msg('Demo account reset.')}
+function riskCalc(){const balance=Number(document.getElementById('rBalance').value)||state.balance,risk=Number(document.getElementById('rRisk').value)||1,entry=Number(document.getElementById('rEntry').value)||state.price,stop=Number(document.getElementById('rStop').value);if(!stop||stop===entry)return;const dollar=balance*risk/100,dist=Math.abs(entry-stop),lot=dollar/(dist*100);document.getElementById('rDollar').textContent='$'+fmt(dollar);document.getElementById('rLot').textContent=lot.toFixed(2);document.getElementById('rDistance').textContent=dist.toFixed(2)}
+function renderPositions(){const boxfunction renderStats(){
+  const trades=state.history;
+  const wins=trades.filter(t=>t.pnl>0);
+  const losses=trades.filter(t=>t.pnl<0);
+  const grossProfit=wins.reduce((a,t)=>a+t.pnl,0);
+  const grossLoss=Math.abs(losses.reduce((a,t)=>a+t.pnl,0));
+  const totalPnL=trades.reduce((a,t)=>a+t.pnl,0);
+  const winRate=trades.length?(wins.length/trades.length)*100:0;
+  const pf=grossLoss?grossProfit/grossLoss:0;
+  const best=trades.length?Math.max(...trades.map(t=>t.pnl)):0;
+  const worst=trades.length?Math.min(...trades.map(t=>t.pnl)):0;
+  const values=[10000,...trades.slice().reverse().map((t,i)=>10000+trades.slice().reverse().slice(0,i+1).reduce((a,x)=>a+x.pnl,0))];
+  let peak=values[0],maxDD=0;
+  values.forEach(v=>{peak=Math.max(peak,v);maxDD=Math.max(maxDD,peak-v)});
+  document.getElementById('statTotal').textContent=(totalPnL>=0?'+':'')+'$'+fmt(totalPnL);
+  document.getElementById('statWin').textContent=winRate.toFixed(1)+'%';
+  document.getElementById('statTrades').textContent=trades.length;
+  document.getElementById('statPF').textContent=pf?pf.toFixed(2):'—';
+  document.getElementById('statGP').textContent='+$'+fmt(grossProfit);
+  document.getElementById('statGL').textContent='-$'+fmt(grossLoss);
+  document.getElementById('statBest').textContent='+$'+fmt(best);
+  document.getElementById('statWorst').textContent='$'+fmt(worst);
+  document.getElementById('statDD').textContent='-$'+fmt(maxDD);
+}
+
+function render(){
+  updateEquity();
+
+  const name=user?.name||'Trader';
+  const username=user?.username||'trader';
+
+  document.querySelectorAll('[data-user-name]').forEach(e=>e.textContent=name);
+  document.querySelectorAll('[data-user-username]').forEach(e=>e.textContent='@'+username);
+
+  const balance=document.getElementById('balance');
+  const equity=document.getElementById('equity');
+  const price=document.getElementById('price');
+  const today=document.getElementById('today');
+  const openPnl=state.equity-state.balance;
+
+  if(balance)balance.textContent='$'+fmt(state.balance);
+  if(equity)equity.textContent='$'+fmt(state.equity);
+  if(price)price.textContent=state.price.toFixed(2);
+  if(today){
+    today.textContent=(state.today>=0?'+':'')+'$'+fmt(state.today);
+    today.className=state.today>=0?'pos':'neg';
+  }
+
+  const floating=document.getElementById('floating');
+  if(floating){
+    floating.textContent=(openPnl>=0?'+':'')+'$'+fmt(openPnl);
+    floating.className=openPnl>=0?'pos':'neg';
+  }
+
+  const openCount=document.getElementById('openCount');
+  if(openCount)openCount.textContent=state.positions.length;
+
+  const tradeCount=document.getElementById('tradeCount');
+  if(tradeCount)tradeCount.textContent=state.history.length;
+
+  const version=document.getElementById('appVersion');
+  if(version)version.textContent=APP_VERSION;
+
+  renderPositions();
+  renderHistory();
+  renderStats();
+  riskCalc();
+
+  const logout=document.getElementById('logoutBtn');
+  if(logout)logout.style.display=cloudMode?'block':'none';
+}
+
+function simulatePrice(){
+  const change=(Math.random()-.5)*2.4;
+  state.price=Math.max(1800,state.price+change);
+  updateEquity();
+  checkPositions();
+  save();
+  render();
+}
+
+function setMarketPrice(){
+  const input=document.getElementById('entry');
+  if(input)input.value=state.price.toFixed(2);
+}
+
+document.addEventListener('input',e=>{
+  if(['rBalance','rRisk','rEntry','rStop'].includes(e.target.id))riskCalc();
+});
+
+setInterval(simulatePrice,4000);
+
+document.addEventListener('DOMContentLoaded',()=>{
+  render();
+  setMarketPrice();
+});
+
+window.addEventListener('beforeunload',()=>save());
+</script>
+</body>
+</html></body>
+</html>
