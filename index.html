@@ -17,7 +17,7 @@
       --green2: #0d8f54;
       --red: #dc4545;
       --yellow: #c58b16;
-      --shadow: 0 8px 25px rgba(20, 40, 30, 0.06);
+      --shadow: 0 8px 25px rgba(20, 40, 30, .06);
     }
 
     * {
@@ -44,6 +44,157 @@
       border: none;
     }
 
+    .hidden {
+      display: none !important;
+    }
+
+    .auth-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: var(--bg);
+    }
+
+    .auth-box {
+      width: 100%;
+      max-width: 430px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .auth-brand {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .auth-logo {
+      width: 65px;
+      height: 65px;
+      display: grid;
+      place-items: center;
+      margin: auto auto 12px;
+      border-radius: 20px;
+      background: var(--green);
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .auth-brand h1 {
+      font-size: 22px;
+      margin-bottom: 7px;
+    }
+
+    .auth-brand p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .auth-tab {
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--muted);
+      font-weight: bold;
+    }
+
+    .auth-tab.active {
+      background: var(--green);
+      color: white;
+    }
+
+    .auth-form h2 {
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      outline: none;
+      background: white;
+      color: var(--text);
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--green);
+    }
+
+    .btn {
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--green2);
+    }
+
+    .btn-light {
+      background: white;
+      color: var(--green2);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--green2);
+      border: 1px solid var(--green);
+    }
+
+    .btn-danger {
+      background: var(--red);
+      color: white;
+    }
+
+    .full {
+      width: 100%;
+    }
+
+    .auth-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 18px;
+      line-height: 1.6;
+    }
+
     .app {
       max-width: 1200px;
       margin: auto;
@@ -51,7 +202,7 @@
     }
 
     header {
-      background: var(--panel);
+      background: white;
       border-bottom: 1px solid var(--line);
       padding: 18px 22px;
       display: flex;
@@ -102,6 +253,7 @@
       place-items: center;
       font-weight: bold;
       border: 1px solid var(--line);
+      cursor: pointer;
     }
 
     main {
@@ -156,42 +308,6 @@
       flex-wrap: wrap;
     }
 
-    .btn {
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-weight: bold;
-      transition: .2s;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: var(--green2);
-    }
-
-    .btn-light {
-      background: white;
-      color: var(--green2);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--green2);
-      border: 1px solid var(--green);
-    }
-
-    .btn-danger {
-      background: var(--red);
-      color: white;
-    }
-
     .section-title {
       display: flex;
       justify-content: space-between;
@@ -216,7 +332,7 @@
     }
 
     .service-card {
-      background: var(--panel);
+      background: white;
       border: 1px solid var(--line);
       border-radius: 15px;
       padding: 18px 10px;
@@ -254,14 +370,8 @@
       margin-top: 5px;
     }
 
-    .quick-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
     .form-card {
-      background: var(--panel);
+      background: white;
       border: 1px solid var(--line);
       border-radius: 18px;
       padding: 20px;
@@ -271,37 +381,6 @@
 
     .form-card h3 {
       margin-bottom: 18px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 7px;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      outline: none;
-      background: #ffffff;
-      color: var(--text);
-    }
-
-    input:focus,
-    select:focus {
-      border-color: var(--green);
-    }
-
-    .full {
-      width: 100%;
     }
 
     .network-tabs {
@@ -394,11 +473,13 @@
       color: var(--muted);
       font-size: 11px;
       margin-top: 4px;
+      line-height: 1.5;
     }
 
     .amount {
       font-weight: bold;
       font-size: 13px;
+      white-space: nowrap;
     }
 
     .amount.credit {
@@ -424,6 +505,7 @@
       color: var(--muted);
       padding: 35px 10px;
       font-size: 14px;
+      line-height: 1.7;
     }
 
     .profile-box {
@@ -465,7 +547,7 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       z-index: 30;
-      box-shadow: 0 -5px 20px rgba(0,0,0,.04);
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, .04);
     }
 
     .nav-item {
@@ -508,7 +590,7 @@
       background: white;
       border-radius: 18px;
       padding: 22px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .18);
     }
 
     .modal-header {
@@ -535,6 +617,7 @@
       border-radius: 10px;
       font-size: 12px;
       margin-bottom: 15px;
+      line-height: 1.6;
     }
 
     .toast {
@@ -581,10 +664,6 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .quick-grid {
-        grid-template-columns: 1fr;
-      }
-
       .balance {
         font-size: 27px;
       }
@@ -592,12 +671,91 @@
       .welcome h2 {
         font-size: 22px;
       }
+
+      .auth-box {
+        padding: 22px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="app">
+
+  <!-- AUTHENTICATION SCREEN -->
+  <div class="auth-screen" id="authScreen">
+    <div class="auth-box">
+      <div class="auth-brand">
+        <div class="auth-logo">W</div>
+        <h1>WALEED DATA HUB</h1>
+        <p>Fast • Reliable • Affordable</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTab" onclick="showAuthForm('login')">
+          Login
+        </button>
+
+        <button class="auth-tab" id="signupTab" onclick="showAuthForm('signup')">
+          Sign Up
+        </button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form class="auth-form" id="loginForm" onsubmit="loginUser(event)">
+        <h2>Welcome Back 👋</h2>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input id="loginEmail" type="email" placeholder="Enter your email" required />
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input id="loginPassword" type="password" placeholder="Enter your password" required />
+        </div>
+
+        <button class="btn btn-primary full" type="submit">
+          Login to Account
+        </button>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form class="auth-form hidden" id="signupForm" onsubmit="signupUser(event)">
+        <h2>Create Account</h2>
+
+        <div class="form-group">
+          <label>Full Name</label>
+          <input id="signupName" type="text" placeholder="Enter your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input id="signupEmail" type="email" placeholder="Enter your email" required />
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input id="signupPhone" type="tel" placeholder="08012345678" required />
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input id="signupPassword" type="password" placeholder="Create a password" minlength="4" required />
+        </div>
+
+        <button class="btn btn-primary full" type="submit">
+          Create Account
+        </button>
+      </form>
+
+      <div class="auth-note">
+        Demo version only. Your account information is stored locally in this browser.
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div class="app hidden" id="mainApp">
     <header>
       <div class="brand">
         <div class="brand-logo">W</div>
@@ -611,10 +769,11 @@
     </header>
 
     <main>
+
       <!-- HOME -->
       <section class="page active" id="home">
         <div class="welcome">
-          <h2>Welcome back, Waleed 👋</h2>
+          <h2>Welcome back, <span id="welcomeName">Waleed</span> 👋</h2>
           <p>Manage your data, airtime and bills easily.</p>
         </div>
 
@@ -626,6 +785,7 @@
             <button class="btn btn-light" onclick="openFundModal()">
               + Fund Wallet
             </button>
+
             <button class="btn btn-outline" style="color:white;border-color:white" onclick="showPage('transactions')">
               View Transactions
             </button>
@@ -806,9 +966,9 @@
       <!-- PROFILE -->
       <section class="page" id="profile">
         <div class="form-card profile-box">
-          <div class="profile-avatar">W</div>
-          <h2>WALEED</h2>
-          <p>WALEED DATA HUB user</p>
+          <div class="profile-avatar" id="profileAvatar">W</div>
+          <h2 id="profileName">Waleed</h2>
+          <p id="profileEmail">user@example.com</p>
         </div>
 
         <div class="form-card">
@@ -816,15 +976,20 @@
 
           <div class="form-group">
             <label>Full Name</label>
-            <input value="Waleed" />
+            <input id="profileFullName" />
           </div>
 
           <div class="form-group">
             <label>Email Address</label>
-            <input placeholder="Enter your email" />
+            <input id="profileEmailInput" type="email" />
           </div>
 
-          <button class="btn btn-primary full" onclick="showToast('Profile saved successfully')">
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input id="profilePhone" type="tel" />
+          </div>
+
+          <button class="btn btn-primary full" onclick="saveProfile()">
             Save Profile
           </button>
         </div>
@@ -834,13 +999,15 @@
             This is currently a demo version. Real payment services will be connected in a future version.
           </div>
 
-          <button class="btn btn-danger full" onclick="resetApp()">
-            Reset Demo Account
+          <button class="btn btn-danger full" onclick="logoutUser()">
+            Logout
           </button>
         </div>
       </section>
+
     </main>
 
+    <!-- BOTTOM NAVIGATION -->
     <nav class="bottom-nav">
       <div class="nav-item active" onclick="showPage('home', this)">
         <span>⌂</span>
@@ -895,11 +1062,12 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    let state = JSON.parse(localStorage.getItem("waleedDataHub")) || {
-      balance: 0,
-      transactions: [],
-      network: "MTN"
-    };
+    const USERS_KEY = "waleedDataHubUsers";
+    const SESSION_KEY = "waleedDataHubCurrentUser";
+
+    let users = JSON.parse(localStorage.getItem(USERS_KEY)) || {};
+    let currentUserEmail = localStorage.getItem(SESSION_KEY);
+    let state = null;
 
     const bundles = {
       MTN: [
@@ -928,14 +1096,137 @@
       ]
     };
 
+    function saveUsers() {
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+    }
+
     function saveState() {
-      localStorage.setItem("waleedDataHub", JSON.stringify(state));
+      if (!currentUserEmail || !state) return;
+
+      users[currentUserEmail].balance = state.balance;
+      users[currentUserEmail].transactions = state.transactions;
+      users[currentUserEmail].network = state.network;
+
+      saveUsers();
     }
 
     function formatMoney(amount) {
       return "₦" + Number(amount).toLocaleString("en-NG", {
         minimumFractionDigits: 2
       });
+    }
+
+    function showAuthForm(type) {
+      const loginForm = document.getElementById("loginForm");
+      const signupForm = document.getElementById("signupForm");
+      const loginTab = document.getElementById("loginTab");
+      const signupTab = document.getElementById("signupTab");
+
+      if (type === "login") {
+        loginForm.classList.remove("hidden");
+        signupForm.classList.add("hidden");
+        loginTab.classList.add("active");
+        signupTab.classList.remove("active");
+      } else {
+        loginForm.classList.add("hidden");
+        signupForm.classList.remove("hidden");
+        loginTab.classList.remove("active");
+        signupTab.classList.add("active");
+      }
+    }
+
+    function signupUser(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("signupName").value.trim();
+      const email = document.getElementById("signupEmail").value.trim().toLowerCase();
+      const phone = document.getElementById("signupPhone").value.trim();
+      const password = document.getElementById("signupPassword").value;
+
+      if (users[email]) {
+        showToast("An account with this email already exists");
+        return;
+      }
+
+      users[email] = {
+        name,
+        email,
+        phone,
+        password,
+        balance: 0,
+        network: "MTN",
+        transactions: []
+      };
+
+      saveUsers();
+
+      currentUserEmail = email;
+      localStorage.setItem(SESSION_KEY, email);
+
+      loadCurrentUser();
+      showToast("Account created successfully");
+    }
+
+    function loginUser(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+      const password = document.getElementById("loginPassword").value;
+
+      if (!users[email]) {
+        showToast("Account not found. Please sign up first");
+        return;
+      }
+
+      if (users[email].password !== password) {
+        showToast("Incorrect password");
+        return;
+      }
+
+      currentUserEmail = email;
+      localStorage.setItem(SESSION_KEY, email);
+
+      loadCurrentUser();
+      showToast("Login successful");
+    }
+
+    function loadCurrentUser() {
+      if (!currentUserEmail || !users[currentUserEmail]) {
+        document.getElementById("authScreen").classList.remove("hidden");
+        document.getElementById("mainApp").classList.add("hidden");
+        return;
+      }
+
+      const user = users[currentUserEmail];
+
+      state = {
+        balance: user.balance || 0,
+        transactions: user.transactions || [],
+        network: user.network || "MTN"
+      };
+
+      document.getElementById("authScreen").classList.add("hidden");
+      document.getElementById("mainApp").classList.remove("hidden");
+
+      updateUserInterface();
+      updateBalance();
+      renderBundles();
+      renderTransactions("recentTransactions");
+      renderTransactions("allTransactions");
+    }
+
+    function updateUserInterface() {
+      const user = users[currentUserEmail];
+      const firstName = user.name.split(" ")[0];
+
+      document.getElementById("welcomeName").textContent = firstName;
+      document.getElementById("profileName").textContent = user.name;
+      document.getElementById("profileEmail").textContent = user.email;
+      document.getElementById("profileAvatar").textContent = firstName.charAt(0).toUpperCase();
+
+      document.getElementById("profileFullName").value = user.name;
+      document.getElementById("profileEmailInput").value = user.email;
+      document.getElementById("profilePhone").value = user.phone;
     }
 
     function updateBalance() {
@@ -957,8 +1248,10 @@
       if (navElement) {
         navElement.classList.add("active");
       } else {
-        document.querySelectorAll(".nav-item").forEach(item => {
-          if (item.textContent.toLowerCase().includes(pageId === "home" ? "home" : pageId)) {
+        const navItems = document.querySelectorAll(".nav-item");
+
+        navItems.forEach(item => {
+          if (item.textContent.toLowerCase().includes(pageId)) {
             item.classList.add("active");
           }
         });
@@ -968,7 +1261,10 @@
         renderTransactions("allTransactions");
       }
 
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
 
     function showToast(message) {
@@ -1010,6 +1306,7 @@
       saveState();
       updateBalance();
       renderTransactions("recentTransactions");
+      renderTransactions("allTransactions");
       closeFundModal();
 
       document.getElementById("fundAmount").value = "";
@@ -1044,6 +1341,13 @@
         item.onclick = () => buyData(bundle.name, bundle.price);
         grid.appendChild(item);
       });
+
+      document.querySelectorAll(".network-tab").forEach(tab => {
+        tab.classList.toggle(
+          "active",
+          tab.textContent.trim() === state.network
+        );
+      });
     }
 
     function buyData(bundleName, price) {
@@ -1072,6 +1376,7 @@
       saveState();
       updateBalance();
       renderTransactions("recentTransactions");
+      renderTransactions("allTransactions");
 
       showToast("Data purchase successful in demo mode");
       document.getElementById("dataPhone").value = "";
@@ -1110,6 +1415,7 @@
       saveState();
       updateBalance();
       renderTransactions("recentTransactions");
+      renderTransactions("allTransactions");
 
       document.getElementById("airtimePhone").value = "";
       document.getElementById("airtimeAmount").value = "";
@@ -1167,6 +1473,7 @@
       saveState();
       updateBalance();
       renderTransactions("recentTransactions");
+      renderTransactions("allTransactions");
 
       showToast("Bill payment successful in demo mode");
     }
@@ -1174,7 +1481,7 @@
     function renderTransactions(elementId) {
       const container = document.getElementById(elementId);
 
-      if (!state.transactions.length) {
+      if (!state || !state.transactions.length) {
         container.innerHTML = `
           <div class="empty">
             No transactions yet.<br />
@@ -1212,24 +1519,58 @@
       `).join("");
     }
 
-    function resetApp() {
-      const confirmed = confirm("Reset your demo wallet and transactions?");
+    function saveProfile() {
+      const name = document.getElementById("profileFullName").value.trim();
+      const email = document.getElementById("profileEmailInput").value.trim().toLowerCase();
+      const phone = document.getElementById("profilePhone").value.trim();
+
+      if (!name || !email || !phone) {
+        showToast("Please complete all profile fields");
+        return;
+      }
+
+      if (email !== currentUserEmail && users[email]) {
+        showToast("That email is already used by another account");
+        return;
+      }
+
+      const oldUser = users[currentUserEmail];
+
+      delete users[currentUserEmail];
+
+      users[email] = {
+        ...oldUser,
+        name,
+        email,
+        phone
+      };
+
+      currentUserEmail = email;
+      localStorage.setItem(SESSION_KEY, email);
+
+      saveUsers();
+      updateUserInterface();
+
+      showToast("Profile saved successfully");
+    }
+
+    function logoutUser() {
+      const confirmed = confirm("Do you want to logout?");
 
       if (!confirmed) return;
 
-      state = {
-        balance: 0,
-        transactions: [],
-        network: "MTN"
-      };
+      currentUserEmail = null;
+      state = null;
+      localStorage.removeItem(SESSION_KEY);
 
-      saveState();
-      updateBalance();
-      renderTransactions("recentTransactions");
-      renderTransactions("allTransactions");
+      document.getElementById("mainApp").classList.add("hidden");
+      document.getElementById("authScreen").classList.remove("hidden");
 
-      showToast("Demo account reset");
-      showPage("home");
+      document.getElementById("loginEmail").value = "";
+      document.getElementById("loginPassword").value = "";
+
+      showAuthForm("login");
+      showToast("You have been logged out");
     }
 
     document.getElementById("fundModal").addEventListener("click", function(event) {
@@ -1238,10 +1579,7 @@
       }
     });
 
-    updateBalance();
-    renderBundles();
-    renderTransactions("recentTransactions");
-    renderTransactions("allTransactions");
+    loadCurrentUser();
   </script>
 </body>
-                </html>
+  </html>
