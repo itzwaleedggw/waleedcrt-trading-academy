@@ -1,1585 +1,1907 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WALEED DATA HUB</title>
-
-  <style>
-    :root {
-      --bg: #f5f7fa;
-      --panel: #ffffff;
-      --panel2: #f0f7f3;
-      --line: #e2e8ee;
-      --text: #17212b;
-      --muted: #718096;
-      --green: #16a765;
-      --green2: #0d8f54;
-      --red: #dc4545;
-      --yellow: #c58b16;
-      --shadow: 0 8px 25px rgba(20, 40, 30, .06);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    button,
-    input,
-    select {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      border: none;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .auth-screen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: var(--bg);
-    }
-
-    .auth-box {
-      width: 100%;
-      max-width: 430px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 28px;
-      box-shadow: var(--shadow);
-    }
-
-    .auth-brand {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .auth-logo {
-      width: 65px;
-      height: 65px;
-      display: grid;
-      place-items: center;
-      margin: auto auto 12px;
-      border-radius: 20px;
-      background: var(--green);
-      color: white;
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .auth-brand h1 {
-      font-size: 22px;
-      margin-bottom: 7px;
-    }
-
-    .auth-brand p {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .auth-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 22px;
-    }
-
-    .auth-tab {
-      padding: 12px;
-      border-radius: 10px;
-      background: var(--bg);
-      color: var(--muted);
-      font-weight: bold;
-    }
-
-    .auth-tab.active {
-      background: var(--green);
-      color: white;
-    }
-
-    .auth-form h2 {
-      font-size: 20px;
-      margin-bottom: 18px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 7px;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      outline: none;
-      background: white;
-      color: var(--text);
-    }
-
-    input:focus,
-    select:focus {
-      border-color: var(--green);
-    }
-
-    .btn {
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-weight: bold;
-      transition: .2s;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: var(--green2);
-    }
-
-    .btn-light {
-      background: white;
-      color: var(--green2);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--green2);
-      border: 1px solid var(--green);
-    }
-
-    .btn-danger {
-      background: var(--red);
-      color: white;
-    }
-
-    .full {
-      width: 100%;
-    }
-
-    .auth-note {
-      text-align: center;
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 18px;
-      line-height: 1.6;
-    }
-
-    .app {
-      max-width: 1200px;
-      margin: auto;
-      padding-bottom: 90px;
-    }
-
-    header {
-      background: white;
-      border-bottom: 1px solid var(--line);
-      padding: 18px 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
-      background: var(--green);
-      color: white;
-      display: grid;
-      place-items: center;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .brand h1 {
-      font-size: 18px;
-      letter-spacing: .4px;
-    }
-
-    .brand small {
-      display: block;
-      color: var(--muted);
-      margin-top: 3px;
-      font-size: 11px;
-    }
-
-    .profile-mini {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--panel2);
-      color: var(--green2);
-      display: grid;
-      place-items: center;
-      font-weight: bold;
-      border: 1px solid var(--line);
-      cursor: pointer;
-    }
-
-    main {
-      padding: 22px;
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    .welcome {
-      margin-bottom: 20px;
-    }
-
-    .welcome h2 {
-      font-size: 25px;
-      margin-bottom: 7px;
-    }
-
-    .welcome p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .balance-card {
-      background: linear-gradient(135deg, #16a765, #087d49);
-      color: white;
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-    }
-
-    .balance-card .label {
-      opacity: .85;
-      font-size: 13px;
-    }
-
-    .balance {
-      font-size: 32px;
-      font-weight: bold;
-      margin: 12px 0 20px;
-    }
-
-    .balance-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 25px 0 14px;
-    }
-
-    .section-title h3 {
-      font-size: 18px;
-    }
-
-    .section-title span {
-      color: var(--green2);
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .service-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .service-card {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      padding: 18px 10px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: .2s;
-      cursor: pointer;
-    }
-
-    .service-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--green);
-    }
-
-    .service-icon {
-      width: 45px;
-      height: 45px;
-      border-radius: 14px;
-      background: var(--panel2);
-      display: grid;
-      place-items: center;
-      margin: auto auto 10px;
-      font-size: 22px;
-    }
-
-    .service-card strong {
-      display: block;
-      font-size: 13px;
-    }
-
-    .service-card small {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 5px;
-    }
-
-    .form-card {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-    }
-
-    .form-card h3 {
-      margin-bottom: 18px;
-    }
-
-    .network-tabs {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 15px;
-    }
-
-    .network-tab {
-      padding: 11px 5px;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      background: white;
-      color: var(--text);
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .network-tab.active {
-      background: var(--green);
-      color: white;
-      border-color: var(--green);
-    }
-
-    .bundle-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .bundle {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 15px;
-      background: white;
-      cursor: pointer;
-    }
-
-    .bundle:hover {
-      border-color: var(--green);
-      background: var(--panel2);
-    }
-
-    .bundle strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .bundle span {
-      color: var(--green2);
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .transaction {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 15px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .transaction:last-child {
-      border-bottom: none;
-    }
-
-    .transaction-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .transaction-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: var(--panel2);
-    }
-
-    .transaction-title {
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .transaction-date {
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 4px;
-      line-height: 1.5;
-    }
-
-    .amount {
-      font-weight: bold;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .amount.credit {
-      color: var(--green2);
-    }
-
-    .amount.debit {
-      color: var(--red);
-    }
-
-    .status {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 20px;
-      font-size: 10px;
-      margin-top: 5px;
-      background: #e8f8ef;
-      color: var(--green2);
-    }
-
-    .empty {
-      text-align: center;
-      color: var(--muted);
-      padding: 35px 10px;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .profile-box {
-      text-align: center;
-      padding: 25px;
-    }
-
-    .profile-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: var(--green);
-      color: white;
-      display: grid;
-      place-items: center;
-      margin: auto auto 15px;
-      font-size: 30px;
-      font-weight: bold;
-    }
-
-    .profile-box h2 {
-      margin-bottom: 5px;
-    }
-
-    .profile-box p {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      max-width: 1200px;
-      margin: auto;
-      background: white;
-      border-top: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      z-index: 30;
-      box-shadow: 0 -5px 20px rgba(0, 0, 0, .04);
-    }
-
-    .nav-item {
-      padding: 12px 5px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 11px;
-      cursor: pointer;
-    }
-
-    .nav-item span {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-
-    .nav-item.active {
-      color: var(--green2);
-      font-weight: bold;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 30, 22, .35);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal.show {
-      display: flex;
-    }
-
-    .modal-box {
-      width: 100%;
-      max-width: 430px;
-      background: white;
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .18);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-    }
-
-    .close {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: var(--bg);
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-    .notice {
-      background: #fff8e6;
-      color: #8b6716;
-      border: 1px solid #f0dfad;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 12px;
-      margin-bottom: 15px;
-      line-height: 1.6;
-    }
-
-    .toast {
-      position: fixed;
-      right: 20px;
-      bottom: 90px;
-      background: #17212b;
-      color: white;
-      padding: 14px 18px;
-      border-radius: 10px;
-      display: none;
-      z-index: 200;
-      font-size: 13px;
-      max-width: 300px;
-    }
-
-    .toast.show {
-      display: block;
-      animation: fadeIn .25s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 700px) {
-      main {
-        padding: 16px;
-      }
-
-      header {
-        padding: 15px 16px;
-      }
-
-      .service-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .balance {
-        font-size: 27px;
-      }
-
-      .welcome h2 {
-        font-size: 22px;
-      }
-
-      .auth-box {
-        padding: 22px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WALEED DATA HUB</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f5f7fb;
+  color: #172033;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* AUTHENTICATION */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #ffffff, #eef4ff);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.logo h1 {
+  color: #1769e0;
+  font-size: 25px;
+}
+
+.logo p {
+  color: #777;
+  margin-top: 7px;
+  font-size: 14px;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.auth-tabs button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  background: #eef2f7;
+  color: #555;
+}
+
+.auth-tabs button.active {
+  background: #1769e0;
+  color: white;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #dce2ea;
+  border-radius: 10px;
+  outline: none;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #1769e0;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  background: #1769e0;
+  color: white;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.primary-btn:hover {
+  background: #0d55bd;
+}
+
+.message {
+  font-size: 13px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.error {
+  color: #d93025;
+}
+
+.success {
+  color: #159447;
+}
+
+/* APP LAYOUT */
+
+.app {
+  min-height: 100vh;
+}
+
+.topbar {
+  height: 70px;
+  background: white;
+  border-bottom: 1px solid #e7ebf0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.topbar-brand {
+  color: #1769e0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-mini {
+  font-size: 13px;
+  color: #555;
+}
+
+.logout-btn {
+  padding: 9px 13px;
+  border-radius: 8px;
+  background: #ffecec;
+  color: #d93025;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.main-content {
+  max-width: 1250px;
+  margin: auto;
+  padding: 25px;
+  padding-bottom: 100px;
+}
+
+.page-title {
+  margin-bottom: 20px;
+}
+
+.page-title h2 {
+  font-size: 25px;
+}
+
+.page-title p {
+  color: #777;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+/* CARDS */
+
+.balance-card {
+  background: linear-gradient(135deg, #1769e0, #4b91f1);
+  color: white;
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 22px;
+  box-shadow: 0 10px 25px rgba(23,105,224,0.2);
+}
+
+.balance-card small {
+  opacity: 0.85;
+}
+
+.balance-card h1 {
+  margin: 10px 0 18px;
+  font-size: 32px;
+}
+
+.balance-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.balance-actions button {
+  padding: 11px 15px;
+  border-radius: 9px;
+  background: white;
+  color: #1769e0;
+  font-weight: bold;
+}
+
+.balance-actions button.secondary {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid #e7ebf0;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.stat-card small {
+  color: #777;
+}
+
+.stat-card h3 {
+  margin-top: 10px;
+  font-size: 22px;
+}
+
+.section-title {
+  margin: 25px 0 15px;
+  font-size: 19px;
+}
+
+/* SERVICES */
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.service-card {
+  background: white;
+  border: 1px solid #e7ebf0;
+  border-radius: 15px;
+  padding: 20px;
+  transition: 0.2s;
+}
+
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.service-icon {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #edf4ff;
+  color: #1769e0;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.service-card h3 {
+  margin-bottom: 7px;
+}
+
+.service-card p {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.service-card button {
+  width: 100%;
+  padding: 11px;
+  border-radius: 9px;
+  background: #1769e0;
+  color: white;
+  font-weight: bold;
+}
+
+/* TABLES */
+
+.table-container {
+  background: white;
+  border: 1px solid #e7ebf0;
+  border-radius: 15px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #edf0f4;
+  font-size: 13px;
+}
+
+th {
+  background: #f8fafc;
+  color: #555;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.badge.success {
+  background: #e8f8ef;
+  color: #159447;
+}
+
+.badge.failed {
+  background: #ffecec;
+  color: #d93025;
+}
+
+.badge.admin {
+  background: #eee8ff;
+  color: #6941c6;
+}
+
+/* PROFILE */
+
+.profile-card {
+  background: white;
+  border: 1px solid #e7ebf0;
+  border-radius: 15px;
+  padding: 25px;
+  max-width: 600px;
+}
+
+/* ADMIN */
+
+.admin-banner {
+  background: linear-gradient(135deg, #171c2b, #303b58);
+  color: white;
+  border-radius: 17px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.admin-banner h2 {
+  margin-bottom: 8px;
+}
+
+.admin-banner p {
+  color: #d8deed;
+  font-size: 14px;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.admin-actions button {
+  padding: 11px 15px;
+  border-radius: 9px;
+  background: white;
+  color: #172033;
+  font-weight: bold;
+}
+
+.admin-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.admin-search input {
+  flex: 1;
+  padding: 13px;
+  border: 1px solid #dce2ea;
+  border-radius: 10px;
+  outline: none;
+}
+
+.admin-search button {
+  padding: 13px 18px;
+  border-radius: 10px;
+  background: #1769e0;
+  color: white;
+}
+
+.table-action {
+  padding: 7px 10px;
+  border-radius: 7px;
+  background: #edf4ff;
+  color: #1769e0;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.table-action.danger {
+  background: #ffecec;
+  color: #d93025;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: white;
+  border-top: 1px solid #e7ebf0;
+  display: flex;
+  justify-content: center;
+  z-index: 30;
+}
+
+.nav-inner {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-item {
+  flex: 1;
+  background: white;
+  color: #8993a4;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.nav-item span {
+  font-size: 21px;
+}
+
+.nav-item.active {
+  color: #1769e0;
+  font-weight: bold;
+}
+
+/* MODAL */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.modal {
+  background: white;
+  border-radius: 17px;
+  padding: 25px;
+  width: 100%;
+  max-width: 450px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.close-modal {
+  background: #f1f3f6;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 9px;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background: #eef2f7;
+  color: #555;
+}
+
+.confirm-btn {
+  background: #1769e0;
+  color: white;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    padding: 0 14px;
+  }
+
+  .topbar-brand {
+    font-size: 16px;
+  }
+
+  .user-mini {
+    display: none;
+  }
+
+  .main-content {
+    padding: 18px;
+    padding-bottom: 95px;
+  }
+
+  .balance-card h1 {
+    font-size: 27px;
+  }
+
+  .stats-grid {
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-card h3 {
+    font-size: 18px;
+  }
+
+  .service-grid {
+    gap: 10px;
+  }
+
+  .service-card {
+    padding: 15px;
+  }
+
+  .service-card h3 {
+    font-size: 15px;
+  }
+
+  .service-card p {
+    font-size: 12px;
+  }
+
+  .admin-search {
+    flex-direction: column;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- AUTHENTICATION SCREEN -->
-  <div class="auth-screen" id="authScreen">
-    <div class="auth-box">
-      <div class="auth-brand">
-        <div class="auth-logo">W</div>
-        <h1>WALEED DATA HUB</h1>
-        <p>Fast • Reliable • Affordable</p>
+<!-- AUTH PAGE -->
+<div id="authPage" class="auth-page">
+  <div class="auth-card">
+    <div class="logo">
+      <h1>WALEED DATA HUB</h1>
+      <p>Smart digital services platform</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button id="loginTab" class="active" onclick="showAuthForm('login')">
+        Login
+      </button>
+      <button id="signupTab" onclick="showAuthForm('signup')">
+        Sign Up
+      </button>
+    </div>
+
+    <div id="authMessage" class="message"></div>
+
+    <form id="loginForm" onsubmit="loginUser(event)">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input id="loginEmail" type="email" required placeholder="Enter your email">
       </div>
 
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="loginTab" onclick="showAuthForm('login')">
-          Login
-        </button>
-
-        <button class="auth-tab" id="signupTab" onclick="showAuthForm('signup')">
-          Sign Up
-        </button>
+      <div class="form-group">
+        <label>Password</label>
+        <input id="loginPassword" type="password" required placeholder="Enter your password">
       </div>
 
-      <!-- LOGIN FORM -->
-      <form class="auth-form" id="loginForm" onsubmit="loginUser(event)">
-        <h2>Welcome Back 👋</h2>
+      <button class="primary-btn" type="submit">Login</button>
+    </form>
 
-        <div class="form-group">
-          <label>Email Address</label>
-          <input id="loginEmail" type="email" placeholder="Enter your email" required />
+    <form id="signupForm" class="hidden" onsubmit="signupUser(event)">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input id="signupName" type="text" required placeholder="Enter your full name">
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input id="signupEmail" type="email" required placeholder="Enter your email">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input id="signupPassword" type="password" required minlength="6" placeholder="Create a password">
+      </div>
+
+      <button class="primary-btn" type="submit">Create Account</button>
+    </form>
+
+    <p style="text-align:center;color:#888;font-size:12px;margin-top:20px;">
+      Demo platform only. No real payments are processed.
+    </p>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="app hidden">
+
+  <header class="topbar">
+    <div class="topbar-brand">WALEED DATA HUB</div>
+
+    <div class="topbar-right">
+      <span id="topbarUser" class="user-mini"></span>
+      <button class="logout-btn" onclick="logoutUser()">Logout</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <!-- USER HOME -->
+    <section id="homePage" class="page">
+
+      <div class="page-title">
+        <h2>Welcome back 👋</h2>
+        <p>Manage your digital services from one place.</p>
+      </div>
+
+      <div class="balance-card">
+        <small>Demo Wallet Balance</small>
+        <h1 id="walletBalance">₦0.00</h1>
+
+        <div class="balance-actions">
+          <button onclick="openFundModal()">Fund Wallet</button>
+          <button class="secondary" onclick="showPage('transactionsPage')">
+            View Transactions
+          </button>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <small>Total Transactions</small>
+          <h3 id="userTransactionCount">0</h3>
         </div>
 
-        <div class="form-group">
-          <label>Password</label>
-          <input id="loginPassword" type="password" placeholder="Enter your password" required />
+        <div class="stat-card">
+          <small>Successful</small>
+          <h3 id="userSuccessfulCount">0</h3>
         </div>
 
-        <button class="btn btn-primary full" type="submit">
-          Login to Account
-        </button>
-      </form>
-
-      <!-- SIGNUP FORM -->
-      <form class="auth-form hidden" id="signupForm" onsubmit="signupUser(event)">
-        <h2>Create Account</h2>
-
-        <div class="form-group">
-          <label>Full Name</label>
-          <input id="signupName" type="text" placeholder="Enter your full name" required />
+        <div class="stat-card">
+          <small>Total Spent</small>
+          <h3 id="userTotalSpent">₦0</h3>
         </div>
 
+        <div class="stat-card">
+          <small>Account Type</small>
+          <h3 id="userAccountType">User</h3>
+        </div>
+      </div>
+
+      <h3 class="section-title">Our Services</h3>
+
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-icon">📶</div>
+          <h3>Data Bundles</h3>
+          <p>Buy affordable data bundles for all networks.</p>
+          <button onclick="showPage('dataPage')">Buy Data</button>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">📱</div>
+          <h3>Airtime</h3>
+          <p>Recharge any Nigerian mobile network.</p>
+          <button onclick="openAirtimeModal()">Recharge</button>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">📺</div>
+          <h3>Cable TV</h3>
+          <p>Pay your DSTV, GOtv, or Startimes subscription.</p>
+          <button onclick="openCableModal()">Pay Cable</button>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">💡</div>
+          <h3>Electricity</h3>
+          <p>Pay electricity bills with ease.</p>
+          <button onclick="openElectricityModal()">Pay Bill</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA PAGE -->
+    <section id="dataPage" class="page hidden">
+      <div class="page-title">
+        <h2>Data Bundles</h2>
+        <p>Select a network and data package.</p>
+      </div>
+
+      <div class="profile-card">
         <div class="form-group">
-          <label>Email Address</label>
-          <input id="signupEmail" type="email" placeholder="Enter your email" required />
+          <label>Network</label>
+          <select id="dataNetwork">
+            <option>MTN</option>
+            <option>Airtel</option>
+            <option>Glo</option>
+            <option>9mobile</option>
+          </select>
         </div>
 
         <div class="form-group">
           <label>Phone Number</label>
-          <input id="signupPhone" type="tel" placeholder="08012345678" required />
+          <input id="dataPhone" type="tel" placeholder="08012345678">
         </div>
 
         <div class="form-group">
-          <label>Password</label>
-          <input id="signupPassword" type="password" placeholder="Create a password" minlength="4" required />
+          <label>Data Bundle</label>
+          <select id="dataBundle">
+            <option value="500">500MB — ₦500</option>
+            <option value="1000">1GB — ₦1,000</option>
+            <option value="2000">2GB — ₦2,000</option>
+            <option value="3500">5GB — ₦3,500</option>
+            <option value="5000">10GB — ₦5,000</option>
+          </select>
         </div>
 
-        <button class="btn btn-primary full" type="submit">
-          Create Account
-        </button>
-      </form>
-
-      <div class="auth-note">
-        Demo version only. Your account information is stored locally in this browser.
+        <button class="primary-btn" onclick="buyData()">Purchase Data</button>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- MAIN APP -->
-  <div class="app hidden" id="mainApp">
-    <header>
-      <div class="brand">
-        <div class="brand-logo">W</div>
-        <div>
-          <h1>WALEED DATA HUB</h1>
-          <small>Fast • Reliable • Affordable</small>
-        </div>
+    <!-- BILLS PAGE -->
+    <section id="billsPage" class="page hidden">
+      <div class="page-title">
+        <h2>Bills & Payments</h2>
+        <p>Pay cable TV and electricity bills in demo mode.</p>
       </div>
 
-      <div class="profile-mini" onclick="showPage('profile')">W</div>
-    </header>
-
-    <main>
-
-      <!-- HOME -->
-      <section class="page active" id="home">
-        <div class="welcome">
-          <h2>Welcome back, <span id="welcomeName">Waleed</span> 👋</h2>
-          <p>Manage your data, airtime and bills easily.</p>
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-icon">📺</div>
+          <h3>Cable TV</h3>
+          <p>Pay your TV subscription.</p>
+          <button onclick="openCableModal()">Pay Cable TV</button>
         </div>
 
-        <div class="balance-card">
-          <div class="label">Demo Wallet Balance</div>
-          <div class="balance" id="balance">₦0.00</div>
+        <div class="service-card">
+          <div class="service-icon">💡</div>
+          <h3>Electricity</h3>
+          <p>Pay your electricity bill.</p>
+          <button onclick="openElectricityModal()">Pay Electricity</button>
+        </div>
+      </div>
+    </section>
 
-          <div class="balance-actions">
-            <button class="btn btn-light" onclick="openFundModal()">
-              + Fund Wallet
-            </button>
+    <!-- TRANSACTIONS PAGE -->
+    <section id="transactionsPage" class="page hidden">
+      <div class="page-title">
+        <h2>My Transactions</h2>
+        <p>View your demo transaction history.</p>
+      </div>
 
-            <button class="btn btn-outline" style="color:white;border-color:white" onclick="showPage('transactions')">
-              View Transactions
-            </button>
-          </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="userTransactionsTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PROFILE PAGE -->
+    <section id="profilePage" class="page hidden">
+      <div class="page-title">
+        <h2>My Profile</h2>
+        <p>Manage your account information.</p>
+      </div>
+
+      <div class="profile-card">
+        <div id="profileMessage" class="message"></div>
+
+        <div class="form-group">
+          <label>Full Name</label>
+          <input id="profileName" type="text">
         </div>
 
-        <div class="section-title">
-          <h3>What would you like to do?</h3>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input id="profileEmail" type="email" disabled>
         </div>
 
-        <div class="service-grid">
-          <div class="service-card" onclick="showPage('data')">
-            <div class="service-icon">📶</div>
-            <strong>Buy Data</strong>
-            <small>Internet bundles</small>
-          </div>
-
-          <div class="service-card" onclick="showPage('airtime')">
-            <div class="service-icon">📱</div>
-            <strong>Airtime</strong>
-            <small>Recharge any network</small>
-          </div>
-
-          <div class="service-card" onclick="showPage('bills')">
-            <div class="service-icon">💡</div>
-            <strong>Electricity</strong>
-            <small>Pay electricity bills</small>
-          </div>
-
-          <div class="service-card" onclick="showPage('bills')">
-            <div class="service-icon">📺</div>
-            <strong>Cable TV</strong>
-            <small>DSTV, GOtv & more</small>
-          </div>
+        <div class="form-group">
+          <label>Account Type</label>
+          <input id="profileRole" type="text" disabled>
         </div>
 
-        <div class="section-title">
-          <h3>Recent Transactions</h3>
-          <span onclick="showPage('transactions')">View all</span>
-        </div>
+        <button class="primary-btn" onclick="saveProfile()">Save Changes</button>
+      </div>
+    </section>
 
-        <div class="form-card" id="recentTransactions"></div>
-      </section>
+    <!-- ADMIN PAGE -->
+    <section id="adminPage" class="page hidden">
 
-      <!-- DATA -->
-      <section class="page" id="data">
-        <div class="welcome">
-          <h2>Buy Data</h2>
-          <p>Select your network and preferred bundle.</p>
-        </div>
+      <div class="admin-banner">
+        <h2>Admin Dashboard</h2>
+        <p>Manage users, monitor transactions, and control demo wallet balances.</p>
 
-        <div class="form-card">
-          <div class="network-tabs">
-            <button class="network-tab active" onclick="selectNetwork('MTN', this)">MTN</button>
-            <button class="network-tab" onclick="selectNetwork('Airtel', this)">Airtel</button>
-            <button class="network-tab" onclick="selectNetwork('Glo', this)">Glo</button>
-            <button class="network-tab" onclick="selectNetwork('9mobile', this)">9mobile</button>
-          </div>
-
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input id="dataPhone" type="tel" placeholder="08012345678" />
-          </div>
-
-          <h3 style="margin-bottom:12px">Available Bundles</h3>
-          <div class="bundle-grid" id="bundleGrid"></div>
-        </div>
-      </section>
-
-      <!-- AIRTIME -->
-      <section class="page" id="airtime">
-        <div class="welcome">
-          <h2>Buy Airtime</h2>
-          <p>Recharge your phone instantly in demo mode.</p>
-        </div>
-
-        <div class="form-card">
-          <div class="form-group">
-            <label>Network</label>
-            <select id="airtimeNetwork">
-              <option>MTN</option>
-              <option>Airtel</option>
-              <option>Glo</option>
-              <option>9mobile</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input id="airtimePhone" type="tel" placeholder="08012345678" />
-          </div>
-
-          <div class="form-group">
-            <label>Amount</label>
-            <input id="airtimeAmount" type="number" placeholder="Enter amount" />
-          </div>
-
-          <button class="btn btn-primary full" onclick="buyAirtime()">
-            Recharge Airtime
+        <div class="admin-actions">
+          <button onclick="refreshAdminDashboard()">Refresh Dashboard</button>
+          <button onclick="showPage('adminUsersPage')">Manage Users</button>
+          <button onclick="showPage('adminTransactionsPage')">
+            All Transactions
           </button>
         </div>
-      </section>
+      </div>
 
-      <!-- BILLS -->
-      <section class="page" id="bills">
-        <div class="welcome">
-          <h2>Pay Bills</h2>
-          <p>Manage cable TV and electricity payments.</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <small>Total Users</small>
+          <h3 id="adminTotalUsers">0</h3>
         </div>
 
-        <div class="form-card">
-          <h3>📺 Cable TV Subscription</h3>
-
-          <div class="form-group">
-            <label>Service Provider</label>
-            <select id="cableProvider">
-              <option>DSTV</option>
-              <option>GOtv</option>
-              <option>Startimes</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Smartcard / IUC Number</label>
-            <input id="cableNumber" placeholder="Enter smartcard number" />
-          </div>
-
-          <div class="form-group">
-            <label>Amount</label>
-            <input id="cableAmount" type="number" placeholder="Enter amount" />
-          </div>
-
-          <button class="btn btn-primary full" onclick="payCable()">
-            Pay Cable TV
-          </button>
+        <div class="stat-card">
+          <small>Total Transactions</small>
+          <h3 id="adminTotalTransactions">0</h3>
         </div>
 
-        <div class="form-card">
-          <h3>💡 Electricity Bill</h3>
-
-          <div class="form-group">
-            <label>Distribution Company</label>
-            <select id="electricProvider">
-              <option>IKEDC</option>
-              <option>EEDC</option>
-              <option>EKEDC</option>
-              <option>IBEDC</option>
-              <option>KAEDCO</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Meter Number</label>
-            <input id="meterNumber" placeholder="Enter meter number" />
-          </div>
-
-          <div class="form-group">
-            <label>Amount</label>
-            <input id="electricAmount" type="number" placeholder="Enter amount" />
-          </div>
-
-          <button class="btn btn-primary full" onclick="payElectricity()">
-            Pay Electricity
-          </button>
-        </div>
-      </section>
-
-      <!-- TRANSACTIONS -->
-      <section class="page" id="transactions">
-        <div class="welcome">
-          <h2>Transactions</h2>
-          <p>View your demo wallet activity.</p>
+        <div class="stat-card">
+          <small>Total Demo Balance</small>
+          <h3 id="adminTotalBalance">₦0</h3>
         </div>
 
-        <div class="form-card" id="allTransactions"></div>
-      </section>
-
-      <!-- PROFILE -->
-      <section class="page" id="profile">
-        <div class="form-card profile-box">
-          <div class="profile-avatar" id="profileAvatar">W</div>
-          <h2 id="profileName">Waleed</h2>
-          <p id="profileEmail">user@example.com</p>
+        <div class="stat-card">
+          <small>Total Successful</small>
+          <h3 id="adminSuccessfulTransactions">0</h3>
         </div>
+      </div>
 
-        <div class="form-card">
-          <h3>Account Information</h3>
+      <h3 class="section-title">Recent Users</h3>
 
-          <div class="form-group">
-            <label>Full Name</label>
-            <input id="profileFullName" />
-          </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Balance</th>
+              <th>Transactions</th>
+              <th>Joined</th>
+            </tr>
+          </thead>
+          <tbody id="adminRecentUsersTable"></tbody>
+        </table>
+      </div>
+    </section>
 
-          <div class="form-group">
-            <label>Email Address</label>
-            <input id="profileEmailInput" type="email" />
-          </div>
+    <!-- ADMIN USERS PAGE -->
+    <section id="adminUsersPage" class="page hidden">
+      <div class="page-title">
+        <h2>Manage Users</h2>
+        <p>Search users and manage their demo wallet balances.</p>
+      </div>
 
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input id="profilePhone" type="tel" />
-          </div>
+      <div class="admin-search">
+        <input id="userSearchInput" type="text" placeholder="Search by name or email">
+        <button onclick="renderAdminUsers()">Search</button>
+      </div>
 
-          <button class="btn btn-primary full" onclick="saveProfile()">
-            Save Profile
-          </button>
-        </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Balance</th>
+              <th>Transactions</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminUsersTable"></tbody>
+        </table>
+      </div>
+    </section>
 
-        <div class="form-card">
-          <div class="notice">
-            This is currently a demo version. Real payment services will be connected in a future version.
-          </div>
+    <!-- ADMIN TRANSACTIONS PAGE -->
+    <section id="adminTransactionsPage" class="page hidden">
+      <div class="page-title">
+        <h2>All Transactions</h2>
+        <p>Monitor transactions from every account.</p>
+      </div>
 
-          <button class="btn btn-danger full" onclick="logoutUser()">
-            Logout
-          </button>
-        </div>
-      </section>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Service</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="adminTransactionsTable"></tbody>
+        </table>
+      </div>
+    </section>
 
-    </main>
+  </main>
 
-    <!-- BOTTOM NAVIGATION -->
-    <nav class="bottom-nav">
-      <div class="nav-item active" onclick="showPage('home', this)">
-        <span>⌂</span>
+  <!-- USER BOTTOM NAV -->
+  <nav id="userNav" class="bottom-nav">
+    <div class="nav-inner">
+      <button class="nav-item active" onclick="showPage('homePage', this)">
+        <span>🏠</span>
         Home
-      </div>
+      </button>
 
-      <div class="nav-item" onclick="showPage('data', this)">
+      <button class="nav-item" onclick="showPage('dataPage', this)">
         <span>📶</span>
         Data
-      </div>
+      </button>
 
-      <div class="nav-item" onclick="showPage('bills', this)">
-        <span>💡</span>
-        Bills
-      </div>
-
-      <div class="nav-item" onclick="showPage('transactions', this)">
+      <button class="nav-item" onclick="showPage('billsPage', this)">
         <span>🧾</span>
-        Transactions
-      </div>
+        Bills
+      </button>
 
-      <div class="nav-item" onclick="showPage('profile', this)">
+      <button class="nav-item" onclick="showPage('transactionsPage', this)">
+        <span>📊</span>
+        Transactions
+      </button>
+
+      <button class="nav-item" onclick="showPage('profilePage', this)">
         <span>👤</span>
         Profile
-      </div>
-    </nav>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ADMIN BOTTOM NAV -->
+  <nav id="adminNav" class="bottom-nav hidden">
+    <div class="nav-inner">
+      <button class="nav-item active" onclick="showPage('adminPage', this)">
+        <span>📊</span>
+        Dashboard
+      </button>
+
+      <button class="nav-item" onclick="showPage('adminUsersPage', this)">
+        <span>👥</span>
+        Users
+      </button>
+
+      <button class="nav-item" onclick="showPage('adminTransactionsPage', this)">
+        <span>🧾</span>
+        Transactions
+      </button>
+
+      <button class="nav-item" onclick="showPage('profilePage', this)">
+        <span>👤</span>
+        Profile
+      </button>
+    </div>
+  </nav>
+</div>
+
+<!-- MODAL -->
+<div id="modalOverlay" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Modal</h3>
+      <button class="close-modal" onclick="closeModal()">×</button>
+    </div>
+
+    <div id="modalBody"></div>
   </div>
+</div>
 
-  <!-- FUND WALLET MODAL -->
-  <div class="modal" id="fundModal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>Fund Demo Wallet</h3>
-        <button class="close" onclick="closeFundModal()">×</button>
+<script>
+const USERS_KEY = "waleedDataHubUsers";
+const CURRENT_USER_KEY = "waleedDataHubCurrentUser";
+
+let currentUser = null;
+let currentModalAction = null;
+
+function getUsers() {
+  return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+}
+
+function saveUsers(users) {
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+
+function getCurrentUser() {
+  const email = localStorage.getItem(CURRENT_USER_KEY);
+  if (!email) return null;
+
+  return getUsers().find(user => user.email === email) || null;
+}
+
+function updateCurrentUser(updatedUser) {
+  const users = getUsers();
+  const index = users.findIndex(user => user.email === updatedUser.email);
+
+  if (index !== -1) {
+    users[index] = updatedUser;
+    saveUsers(users);
+  }
+
+  currentUser = updatedUser;
+}
+
+function formatMoney(amount) {
+  return "₦" + Number(amount || 0).toLocaleString("en-NG", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+function formatDate(date) {
+  return new Date(date).toLocaleString("en-NG");
+}
+
+function showAuthForm(type) {
+  const loginForm = document.getElementById("loginForm");
+  const signupForm = document.getElementById("signupForm");
+  const loginTab = document.getElementById("loginTab");
+  const signupTab = document.getElementById("signupTab");
+
+  clearAuthMessage();
+
+  if (type === "login") {
+    loginForm.classList.remove("hidden");
+    signupForm.classList.add("hidden");
+    loginTab.classList.add("active");
+    signupTab.classList.remove("active");
+  } else {
+    loginForm.classList.add("hidden");
+    signupForm.classList.remove("hidden");
+    loginTab.classList.remove("active");
+    signupTab.classList.add("active");
+  }
+}
+
+function showAuthMessage(message, type = "error") {
+  const element = document.getElementById("authMessage");
+  element.textContent = message;
+  element.className = "message " + type;
+}
+
+function clearAuthMessage() {
+  const element = document.getElementById("authMessage");
+  element.textContent = "";
+  element.className = "message";
+}
+
+function signupUser(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("signupName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim().toLowerCase();
+  const password = document.getElementById("signupPassword").value;
+
+  const users = getUsers();
+
+  if (email === "admin@waleeddatahub.com") {
+    showAuthMessage("This email is reserved for the admin account.");
+    return;
+  }
+
+  if (users.some(user => user.email === email)) {
+    showAuthMessage("An account with this email already exists.");
+    return;
+  }
+
+  const newUser = {
+    id: Date.now(),
+    name,
+    email,
+    password,
+    role: "user",
+    balance: 0,
+    transactions: [],
+    createdAt: new Date().toISOString()
+  };
+
+  users.push(newUser);
+  saveUsers(users);
+
+  showAuthMessage("Account created successfully. You can now log in.", "success");
+  document.getElementById("signupForm").reset();
+
+  setTimeout(() => {
+    showAuthForm("login");
+    document.getElementById("loginEmail").value = email;
+  }, 800);
+}
+
+function loginUser(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+  const password = document.getElementById("loginPassword").value;
+
+  if (
+    email === "admin@waleeddatahub.com" &&
+    password === "Admin123"
+  ) {
+    let users = getUsers();
+
+    let admin = users.find(user => user.email === email);
+
+    if (!admin) {
+      admin = {
+        id: "admin",
+        name: "WALEED DATA HUB Admin",
+        email,
+        password,
+        role: "admin",
+        balance: 0,
+        transactions: [],
+        createdAt: new Date().toISOString()
+      };
+
+      users.push(admin);
+      saveUsers(users);
+    }
+
+    localStorage.setItem(CURRENT_USER_KEY, email);
+    currentUser = admin;
+    openApp();
+    return;
+  }
+
+  const user = getUsers().find(
+    user => user.email === email && user.password === password
+  );
+
+  if (!user) {
+    showAuthMessage("Incorrect email or password.");
+    return;
+  }
+
+  localStorage.setItem(CURRENT_USER_KEY, email);
+  currentUser = user;
+  openApp();
+}
+
+function openApp() {
+  document.getElementById("authPage").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+
+  document.getElementById("topbarUser").textContent =
+    currentUser.name + " • " + currentUser.role;
+
+  if (currentUser.role === "admin") {
+    document.getElementById("userNav").classList.add("hidden");
+    document.getElementById("adminNav").classList.remove("hidden");
+
+    showPage("adminPage");
+    refreshAdminDashboard();
+  } else {
+    document.getElementById("userNav").classList.remove("hidden");
+    document.getElementById("adminNav").classList.add("hidden");
+
+    showPage("homePage");
+    refreshUserDashboard();
+  }
+
+  loadProfile();
+}
+
+function logoutUser() {
+  localStorage.removeItem(CURRENT_USER_KEY);
+  currentUser = null;
+
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("authPage").classList.remove("hidden");
+
+  document.getElementById("loginForm").reset();
+  showAuthForm("login");
+}
+
+function showPage(pageId, clickedButton = null) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.add("hidden");
+  });
+
+  const page = document.getElementById(pageId);
+  if (page) page.classList.remove("hidden");
+
+  if (clickedButton) {
+    const nav = clickedButton.closest(".bottom-nav");
+
+    nav.querySelectorAll(".nav-item").forEach(item => {
+      item.classList.remove("active");
+    });
+
+    clickedButton.classList.add("active");
+  }
+
+  if (pageId === "homePage") refreshUserDashboard();
+  if (pageId === "transactionsPage") renderUserTransactions();
+  if (pageId === "adminPage") refreshAdminDashboard();
+  if (pageId === "adminUsersPage") renderAdminUsers();
+  if (pageId === "adminTransactionsPage") renderAdminTransactions();
+  if (pageId === "profilePage") loadProfile();
+}
+
+function refreshUserDashboard() {
+  if (!currentUser || currentUser.role === "admin") return;
+
+  document.getElementById("walletBalance").textContent =
+    formatMoney(currentUser.balance);
+
+  const transactions = currentUser.transactions || [];
+  const successful = transactions.filter(t => t.status === "Successful");
+  const spent = transactions
+    .filter(t => t.type === "debit")
+    .reduce((sum, t) => sum + Number(t.amount), 0);
+
+  document.getElementById("userTransactionCount").textContent =
+    transactions.length;
+
+  document.getElementById("userSuccessfulCount").textContent =
+    successful.length;
+
+  document.getElementById("userTotalSpent").textContent =
+    formatMoney(spent);
+
+  document.getElementById("userAccountType").textContent = "User";
+}
+
+function addTransaction(user, transaction) {
+  if (!user.transactions) user.transactions = [];
+
+  user.transactions.unshift({
+    id: Date.now(),
+    ...transaction,
+    date: new Date().toISOString()
+  });
+
+  updateCurrentUser(user);
+}
+
+function completePurchase(service, description, amount) {
+  amount = Number(amount);
+
+  if (currentUser.balance < amount) {
+    alert("Insufficient demo wallet balance.");
+    return false;
+  }
+
+  currentUser.balance -= amount;
+
+  addTransaction(currentUser, {
+    service,
+    description,
+    amount,
+    type: "debit",
+    status: "Successful"
+  });
+
+  alert("Demo purchase successful.");
+  refreshUserDashboard();
+  closeModal();
+
+  return true;
+}
+
+function openFundModal() {
+  openModal(
+    "Fund Demo Wallet",
+    `
+      <div class="form-group">
+        <label>Amount</label>
+        <input id="fundAmount" type="number" min="1" placeholder="Enter amount">
       </div>
 
-      <div class="notice">
-        Demo funding only. No real money will be charged.
+      <p style="font-size:13px;color:#777;">
+        This is demo funding. No real money is involved.
+      </p>
+
+      <div class="modal-buttons">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="confirm-btn" onclick="fundWallet()">Fund Wallet</button>
+      </div>
+    `
+  );
+}
+
+function fundWallet() {
+  const amount = Number(document.getElementById("fundAmount").value);
+
+  if (!amount || amount <= 0) {
+    alert("Enter a valid amount.");
+    return;
+  }
+
+  currentUser.balance += amount;
+
+  addTransaction(currentUser, {
+    service: "Wallet",
+    description: "Demo wallet funding",
+    amount,
+    type: "credit",
+    status: "Successful"
+  });
+
+  alert("Demo wallet funded successfully.");
+  refreshUserDashboard();
+  closeModal();
+}
+
+function buyData() {
+  const network = document.getElementById("dataNetwork").value;
+  const phone = document.getElementById("dataPhone").value.trim();
+  const bundle = document.getElementById("dataBundle");
+  const amount = Number(bundle.value);
+  const description = `${network} data for ${phone || "customer"} — ${bundle.options[bundle.selectedIndex].text}`;
+
+  if (!phone) {
+    alert("Enter a phone number.");
+    return;
+  }
+
+  completePurchase("Data", description, amount);
+}
+
+function openAirtimeModal() {
+  openModal(
+    "Airtime Recharge",
+    `
+      <div class="form-group">
+        <label>Network</label>
+        <select id="airtimeNetwork">
+          <option>MTN</option>
+          <option>Airtel</option>
+          <option>Glo</option>
+          <option>9mobile</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input id="airtimePhone" type="tel" placeholder="08012345678">
       </div>
 
       <div class="form-group">
         <label>Amount</label>
-        <input id="fundAmount" type="number" placeholder="Enter amount" />
+        <input id="airtimeAmount" type="number" min="50" placeholder="Enter amount">
       </div>
 
-      <button class="btn btn-primary full" onclick="fundWallet()">
-        Add Demo Money
-      </button>
-    </div>
-  </div>
-
-  <div class="toast" id="toast"></div>
-
-  <script>
-    const USERS_KEY = "waleedDataHubUsers";
-    const SESSION_KEY = "waleedDataHubCurrentUser";
-
-    let users = JSON.parse(localStorage.getItem(USERS_KEY)) || {};
-    let currentUserEmail = localStorage.getItem(SESSION_KEY);
-    let state = null;
-
-    const bundles = {
-      MTN: [
-        { name: "500MB", price: 150 },
-        { name: "1GB", price: 300 },
-        { name: "2GB", price: 600 },
-        { name: "5GB", price: 1500 }
-      ],
-      Airtel: [
-        { name: "500MB", price: 150 },
-        { name: "1GB", price: 300 },
-        { name: "2GB", price: 600 },
-        { name: "5GB", price: 1500 }
-      ],
-      Glo: [
-        { name: "500MB", price: 120 },
-        { name: "1GB", price: 250 },
-        { name: "2GB", price: 500 },
-        { name: "5GB", price: 1300 }
-      ],
-      "9mobile": [
-        { name: "500MB", price: 150 },
-        { name: "1GB", price: 300 },
-        { name: "2GB", price: 600 },
-        { name: "5GB", price: 1500 }
-      ]
-    };
-
-    function saveUsers() {
-      localStorage.setItem(USERS_KEY, JSON.stringify(users));
-    }
-
-    function saveState() {
-      if (!currentUserEmail || !state) return;
-
-      users[currentUserEmail].balance = state.balance;
-      users[currentUserEmail].transactions = state.transactions;
-      users[currentUserEmail].network = state.network;
-
-      saveUsers();
-    }
-
-    function formatMoney(amount) {
-      return "₦" + Number(amount).toLocaleString("en-NG", {
-        minimumFractionDigits: 2
-      });
-    }
-
-    function showAuthForm(type) {
-      const loginForm = document.getElementById("loginForm");
-      const signupForm = document.getElementById("signupForm");
-      const loginTab = document.getElementById("loginTab");
-      const signupTab = document.getElementById("signupTab");
-
-      if (type === "login") {
-        loginForm.classList.remove("hidden");
-        signupForm.classList.add("hidden");
-        loginTab.classList.add("active");
-        signupTab.classList.remove("active");
-      } else {
-        loginForm.classList.add("hidden");
-        signupForm.classList.remove("hidden");
-        loginTab.classList.remove("active");
-        signupTab.classList.add("active");
-      }
-    }
-
-    function signupUser(event) {
-      event.preventDefault();
-
-      const name = document.getElementById("signupName").value.trim();
-      const email = document.getElementById("signupEmail").value.trim().toLowerCase();
-      const phone = document.getElementById("signupPhone").value.trim();
-      const password = document.getElementById("signupPassword").value;
-
-      if (users[email]) {
-        showToast("An account with this email already exists");
-        return;
-      }
-
-      users[email] = {
-        name,
-        email,
-        phone,
-        password,
-        balance: 0,
-        network: "MTN",
-        transactions: []
-      };
-
-      saveUsers();
-
-      currentUserEmail = email;
-      localStorage.setItem(SESSION_KEY, email);
-
-      loadCurrentUser();
-      showToast("Account created successfully");
-    }
-
-    function loginUser(event) {
-      event.preventDefault();
-
-      const email = document.getElementById("loginEmail").value.trim().toLowerCase();
-      const password = document.getElementById("loginPassword").value;
-
-      if (!users[email]) {
-        showToast("Account not found. Please sign up first");
-        return;
-      }
-
-      if (users[email].password !== password) {
-        showToast("Incorrect password");
-        return;
-      }
-
-      currentUserEmail = email;
-      localStorage.setItem(SESSION_KEY, email);
-
-      loadCurrentUser();
-      showToast("Login successful");
-    }
-
-    function loadCurrentUser() {
-      if (!currentUserEmail || !users[currentUserEmail]) {
-        document.getElementById("authScreen").classList.remove("hidden");
-        document.getElementById("mainApp").classList.add("hidden");
-        return;
-      }
-
-      const user = users[currentUserEmail];
-
-      state = {
-        balance: user.balance || 0,
-        transactions: user.transactions || [],
-        network: user.network || "MTN"
-      };
-
-      document.getElementById("authScreen").classList.add("hidden");
-      document.getElementById("mainApp").classList.remove("hidden");
-
-      updateUserInterface();
-      updateBalance();
-      renderBundles();
-      renderTransactions("recentTransactions");
-      renderTransactions("allTransactions");
-    }
-
-    function updateUserInterface() {
-      const user = users[currentUserEmail];
-      const firstName = user.name.split(" ")[0];
-
-      document.getElementById("welcomeName").textContent = firstName;
-      document.getElementById("profileName").textContent = user.name;
-      document.getElementById("profileEmail").textContent = user.email;
-      document.getElementById("profileAvatar").textContent = firstName.charAt(0).toUpperCase();
-
-      document.getElementById("profileFullName").value = user.name;
-      document.getElementById("profileEmailInput").value = user.email;
-      document.getElementById("profilePhone").value = user.phone;
-    }
-
-    function updateBalance() {
-      document.getElementById("balance").textContent = formatMoney(state.balance);
-    }
-
-    function showPage(pageId, navElement = null) {
-      document.querySelectorAll(".page").forEach(page => {
-        page.classList.remove("active");
-      });
-
-      const page = document.getElementById(pageId);
-      if (page) page.classList.add("active");
-
-      document.querySelectorAll(".nav-item").forEach(item => {
-        item.classList.remove("active");
-      });
-
-      if (navElement) {
-        navElement.classList.add("active");
-      } else {
-        const navItems = document.querySelectorAll(".nav-item");
-
-        navItems.forEach(item => {
-          if (item.textContent.toLowerCase().includes(pageId)) {
-            item.classList.add("active");
-          }
-        });
-      }
-
-      if (pageId === "transactions") {
-        renderTransactions("allTransactions");
-      }
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 2800);
-    }
-
-    function openFundModal() {
-      document.getElementById("fundModal").classList.add("show");
-    }
-
-    function closeFundModal() {
-      document.getElementById("fundModal").classList.remove("show");
-    }
-
-    function fundWallet() {
-      const amount = Number(document.getElementById("fundAmount").value);
-
-      if (!amount || amount <= 0) {
-        showToast("Enter a valid amount");
-        return;
-      }
-
-      state.balance += amount;
-
-      state.transactions.unshift({
-        type: "credit",
-        title: "Demo Wallet Funding",
-        description: "Demo balance added",
-        amount,
-        date: new Date().toLocaleString()
-      });
-
-      saveState();
-      updateBalance();
-      renderTransactions("recentTransactions");
-      renderTransactions("allTransactions");
-      closeFundModal();
-
-      document.getElementById("fundAmount").value = "";
-      showToast("Demo wallet funded successfully");
-    }
-
-    function selectNetwork(network, button) {
-      state.network = network;
-      saveState();
-
-      document.querySelectorAll(".network-tab").forEach(tab => {
-        tab.classList.remove("active");
-      });
-
-      button.classList.add("active");
-      renderBundles();
-    }
-
-    function renderBundles() {
-      const grid = document.getElementById("bundleGrid");
-      grid.innerHTML = "";
-
-      bundles[state.network].forEach(bundle => {
-        const item = document.createElement("div");
-        item.className = "bundle";
-
-        item.innerHTML = `
-          <strong>${bundle.name}</strong>
-          <span>${formatMoney(bundle.price)}</span>
-        `;
-
-        item.onclick = () => buyData(bundle.name, bundle.price);
-        grid.appendChild(item);
-      });
-
-      document.querySelectorAll(".network-tab").forEach(tab => {
-        tab.classList.toggle(
-          "active",
-          tab.textContent.trim() === state.network
-        );
-      });
-    }
-
-    function buyData(bundleName, price) {
-      const phone = document.getElementById("dataPhone").value.trim();
-
-      if (!phone || phone.length < 10) {
-        showToast("Enter a valid phone number");
-        return;
-      }
-
-      if (state.balance < price) {
-        showToast("Insufficient demo wallet balance");
-        return;
-      }
-
-      state.balance -= price;
-
-      state.transactions.unshift({
-        type: "debit",
-        title: `${state.network} Data`,
-        description: `${bundleName} - ${phone}`,
-        amount: price,
-        date: new Date().toLocaleString()
-      });
-
-      saveState();
-      updateBalance();
-      renderTransactions("recentTransactions");
-      renderTransactions("allTransactions");
-
-      showToast("Data purchase successful in demo mode");
-      document.getElementById("dataPhone").value = "";
-    }
-
-    function buyAirtime() {
-      const network = document.getElementById("airtimeNetwork").value;
-      const phone = document.getElementById("airtimePhone").value.trim();
-      const amount = Number(document.getElementById("airtimeAmount").value);
-
-      if (!phone || phone.length < 10) {
-        showToast("Enter a valid phone number");
-        return;
-      }
-
-      if (!amount || amount <= 0) {
-        showToast("Enter a valid amount");
-        return;
-      }
-
-      if (state.balance < amount) {
-        showToast("Insufficient demo wallet balance");
-        return;
-      }
-
-      state.balance -= amount;
-
-      state.transactions.unshift({
-        type: "debit",
-        title: `${network} Airtime`,
-        description: phone,
-        amount,
-        date: new Date().toLocaleString()
-      });
-
-      saveState();
-      updateBalance();
-      renderTransactions("recentTransactions");
-      renderTransactions("allTransactions");
-
-      document.getElementById("airtimePhone").value = "";
-      document.getElementById("airtimeAmount").value = "";
-
-      showToast("Airtime recharge successful in demo mode");
-    }
-
-    function payCable() {
-      const provider = document.getElementById("cableProvider").value;
-      const number = document.getElementById("cableNumber").value.trim();
-      const amount = Number(document.getElementById("cableAmount").value);
-
-      if (!number) {
-        showToast("Enter smartcard or IUC number");
-        return;
-      }
-
-      processBill(`${provider} Cable TV`, number, amount);
-    }
-
-    function payElectricity() {
-      const provider = document.getElementById("electricProvider").value;
-      const number = document.getElementById("meterNumber").value.trim();
-      const amount = Number(document.getElementById("electricAmount").value);
-
-      if (!number) {
-        showToast("Enter meter number");
-        return;
-      }
-
-      processBill(`${provider} Electricity`, number, amount);
-    }
-
-    function processBill(title, number, amount) {
-      if (!amount || amount <= 0) {
-        showToast("Enter a valid amount");
-        return;
-      }
-
-      if (state.balance < amount) {
-        showToast("Insufficient demo wallet balance");
-        return;
-      }
-
-      state.balance -= amount;
-
-      state.transactions.unshift({
-        type: "debit",
-        title,
-        description: number,
-        amount,
-        date: new Date().toLocaleString()
-      });
-
-      saveState();
-      updateBalance();
-      renderTransactions("recentTransactions");
-      renderTransactions("allTransactions");
-
-      showToast("Bill payment successful in demo mode");
-    }
-
-    function renderTransactions(elementId) {
-      const container = document.getElementById(elementId);
-
-      if (!state || !state.transactions.length) {
-        container.innerHTML = `
-          <div class="empty">
-            No transactions yet.<br />
-            Fund your demo wallet to get started.
-          </div>
-        `;
-        return;
-      }
-
-      const list = elementId === "recentTransactions"
-        ? state.transactions.slice(0, 5)
-        : state.transactions;
-
-      container.innerHTML = list.map(transaction => `
-        <div class="transaction">
-          <div class="transaction-left">
-            <div class="transaction-icon">
-              ${transaction.type === "credit" ? "💰" : "🧾"}
-            </div>
-
-            <div>
-              <div class="transaction-title">${transaction.title}</div>
-              <div class="transaction-date">
-                ${transaction.description}<br />
-                ${transaction.date}
-              </div>
-              <span class="status">Successful</span>
-            </div>
-          </div>
-
-          <div class="amount ${transaction.type}">
-            ${transaction.type === "credit" ? "+" : "-"}${formatMoney(transaction.amount)}
-          </div>
-        </div>
-      `).join("");
-    }
-
-    function saveProfile() {
-      const name = document.getElementById("profileFullName").value.trim();
-      const email = document.getElementById("profileEmailInput").value.trim().toLowerCase();
-      const phone = document.getElementById("profilePhone").value.trim();
-
-      if (!name || !email || !phone) {
-        showToast("Please complete all profile fields");
-        return;
-      }
-
-      if (email !== currentUserEmail && users[email]) {
-        showToast("That email is already used by another account");
-        return;
-      }
-
-      const oldUser = users[currentUserEmail];
-
-      delete users[currentUserEmail];
-
-      users[email] = {
-        ...oldUser,
-        name,
-        email,
-        phone
-      };
-
-      currentUserEmail = email;
-      localStorage.setItem(SESSION_KEY, email);
-
-      saveUsers();
-      updateUserInterface();
-
-      showToast("Profile saved successfully");
-    }
-
-    function logoutUser() {
-      const confirmed = confirm("Do you want to logout?");
-
-      if (!confirmed) return;
-
-      currentUserEmail = null;
-      state = null;
-      localStorage.removeItem(SESSION_KEY);
-
-      document.getElementById("mainApp").classList.add("hidden");
-      document.getElementById("authScreen").classList.remove("hidden");
-
-      document.getElementById("loginEmail").value = "";
-      document.getElementById("loginPassword").value = "";
-
-      showAuthForm("login");
-      showToast("You have been logged out");
-    }
-
-    document.getElementById("fundModal").addEventListener("click", function(event) {
-      if (event.target === this) {
-        closeFundModal();
-      }
+      <div class="modal-buttons">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="confirm-btn" onclick="buyAirtime()">Recharge</button>
+      </div>
+    `
+  );
+}
+
+function buyAirtime() {
+  const network = document.getElementById("airtimeNetwork").value;
+  const phone = document.getElementById("airtimePhone").value.trim();
+  const amount = Number(document.getElementById("airtimeAmount").value);
+
+  if (!phone || !amount || amount <= 0) {
+    alert("Complete all fields correctly.");
+    return;
+  }
+
+  completePurchase(
+    "Airtime",
+    `${network} airtime for ${phone}`,
+    amount
+  );
+}
+
+function openCableModal() {
+  openModal(
+    "Cable TV Payment",
+    `
+      <div class="form-group">
+        <label>Provider</label>
+        <select id="cableProvider">
+          <option>DSTV</option>
+          <option>GOtv</option>
+          <option>Startimes</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Smartcard / IUC Number</label>
+        <input id="cableNumber" type="text" placeholder="Enter number">
+      </div>
+
+      <div class="form-group">
+        <label>Amount</label>
+        <input id="cableAmount" type="number" min="500" placeholder="Enter amount">
+      </div>
+
+      <div class="modal-buttons">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="confirm-btn" onclick="buyCable()">Pay Bill</button>
+      </div>
+    `
+  );
+}
+
+function buyCable() {
+  const provider = document.getElementById("cableProvider").value;
+  const number = document.getElementById("cableNumber").value.trim();
+  const amount = Number(document.getElementById("cableAmount").value);
+
+  if (!number || !amount || amount <= 0) {
+    alert("Complete all fields correctly.");
+    return;
+  }
+
+  completePurchase(
+    "Cable TV",
+    `${provider} subscription for ${number}`,
+    amount
+  );
+}
+
+function openElectricityModal() {
+  openModal(
+    "Electricity Payment",
+    `
+      <div class="form-group">
+        <label>Electricity Provider</label>
+        <select id="electricityProvider">
+          <option>IKEDC</option>
+          <option>EKEDC</option>
+          <option>IBEDC</option>
+          <option>PHED</option>
+          <option>KEDCO</option>
+          <option>Abuja Disco</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Meter Number</label>
+        <input id="meterNumber" type="text" placeholder="Enter meter number">
+      </div>
+
+      <div class="form-group">
+        <label>Amount</label>
+        <input id="electricityAmount" type="number" min="500" placeholder="Enter amount">
+      </div>
+
+      <div class="modal-buttons">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="confirm-btn" onclick="payElectricity()">Pay Bill</button>
+      </div>
+    `
+  );
+}
+
+function payElectricity() {
+  const provider = document.getElementById("electricityProvider").value;
+  const meter = document.getElementById("meterNumber").value.trim();
+  const amount = Number(document.getElementById("electricityAmount").value);
+
+  if (!meter || !amount || amount <= 0) {
+    alert("Complete all fields correctly.");
+    return;
+  }
+
+  completePurchase(
+    "Electricity",
+    `${provider} electricity bill for meter ${meter}`,
+    amount
+  );
+}
+
+function renderUserTransactions() {
+  const table = document.getElementById("userTransactionsTable");
+
+  if (!currentUser || !currentUser.transactions.length) {
+    table.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align:center;color:#777;">
+          No transactions yet.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  table.innerHTML = currentUser.transactions.map(transaction => `
+    <tr>
+      <td>${transaction.service}</td>
+      <td>${transaction.description}</td>
+      <td>${formatMoney(transaction.amount)}</td>
+      <td>
+        <span class="badge ${transaction.status === "Successful" ? "success" : "failed"}">
+          ${transaction.status}
+        </span>
+      </td>
+      <td>${formatDate(transaction.date)}</td>
+    </tr>
+  `).join("");
+}
+
+function loadProfile() {
+  if (!currentUser) return;
+
+  document.getElementById("profileName").value = currentUser.name;
+  document.getElementById("profileEmail").value = currentUser.email;
+  document.getElementById("profileRole").value = currentUser.role;
+}
+
+function saveProfile() {
+  const name = document.getElementById("profileName").value.trim();
+
+  if (!name) {
+    alert("Enter your name.");
+    return;
+  }
+
+  currentUser.name = name;
+  updateCurrentUser(currentUser);
+
+  document.getElementById("topbarUser").textContent =
+    currentUser.name + " • " + currentUser.role;
+
+  const message = document.getElementById("profileMessage");
+  message.textContent = "Profile updated successfully.";
+  message.className = "message success";
+}
+
+function refreshAdminDashboard() {
+  if (!currentUser || currentUser.role !== "admin") return;
+
+  const users = getUsers();
+  const regularUsers = users.filter(user => user.role !== "admin");
+
+  const allTransactions = regularUsers.flatMap(user =>
+    (user.transactions || []).map(transaction => ({
+      ...transaction,
+      userName: user.name,
+      userEmail: user.email
+    }))
+  );
+
+  const successful = allTransactions.filter(
+    transaction => transaction.status === "Successful"
+  );
+
+  const totalBalance = regularUsers.reduce(
+    (sum, user) => sum + Number(user.balance || 0),
+    0
+  );
+
+  document.getElementById("adminTotalUsers").textContent =
+    regularUsers.length;
+
+  document.getElementById("adminTotalTransactions").textContent =
+    allTransactions.length;
+
+  document.getElementById("adminTotalBalance").textContent =
+    formatMoney(totalBalance);
+
+  document.getElementById("adminSuccessfulTransactions").textContent =
+    successful.length;
+
+  const recentUsers = [...regularUsers]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 10);
+
+  const table = document.getElementById("adminRecentUsersTable");
+
+  if (!recentUsers.length) {
+    table.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align:center;color:#777;">
+          No users registered yet.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  table.innerHTML = recentUsers.map(user => `
+    <tr>
+      <td>${user.name}</td>
+      <td>${user.email}</td>
+      <td>${formatMoney(user.balance)}</td>
+      <td>${(user.transactions || []).length}</td>
+      <td>${formatDate(user.createdAt)}</td>
+    </tr>
+  `).join("");
+}
+
+function renderAdminUsers() {
+  if (!currentUser || currentUser.role !== "admin") return;
+
+  const search = document.getElementById("userSearchInput").value
+    .trim()
+    .toLowerCase();
+
+  const users = getUsers()
+    .filter(user => user.role !== "admin")
+    .filter(user =>
+      user.name.toLowerCase().includes(search) ||
+      user.email.toLowerCase().includes(search)
+    );
+
+  const table = document.getElementById("adminUsersTable");
+
+  if (!users.length) {
+    table.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align:center;color:#777;">
+          No users found.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  table.innerHTML = users.map(user => `
+    <tr>
+      <td>${user.name}</td>
+      <td>${user.email}</td>
+      <td><span class="badge admin">User</span></td>
+      <td>${formatMoney(user.balance)}</td>
+      <td>${(user.transactions || []).length}</td>
+      <td>
+        <button class="table-action" onclick="adminAddBalance('${user.email}')">
+          Add
+        </button>
+        <button class="table-action danger" onclick="adminDeductBalance('${user.email}')">
+          Deduct
+        </button>
+      </td>
+    </tr>
+  `).join("");
+}
+
+function adminAddBalance(email) {
+  const amount = Number(prompt("Enter amount to add to this user's demo wallet:"));
+
+  if (!amount || amount <= 0) {
+    alert("Enter a valid amount.");
+    return;
+  }
+
+  const users = getUsers();
+  const user = users.find(user => user.email === email);
+
+  if (!user) return;
+
+  user.balance += amount;
+
+  if (!user.transactions) user.transactions = [];
+
+  user.transactions.unshift({
+    id: Date.now(),
+    service: "Admin Wallet",
+    description: "Demo balance added by admin",
+    amount,
+    type: "credit",
+    status: "Successful",
+    date: new Date().toISOString()
+  });
+
+  saveUsers(users);
+  alert("Demo balance added successfully.");
+  renderAdminUsers();
+  refreshAdminDashboard();
+}
+
+function adminDeductBalance(email) {
+  const amount = Number(prompt("Enter amount to deduct from this user's demo wallet:"));
+
+  if (!amount || amount <= 0) {
+    alert("Enter a valid amount.");
+    return;
+  }
+
+  const users = getUsers();
+  const user = users.find(user => user.email === email);
+
+  if (!user) return;
+
+  if (user.balance < amount) {
+    alert("The user's balance is lower than this amount.");
+    return;
+  }
+
+  user.balance -= amount;
+
+  if (!user.transactions) user.transactions = [];
+
+  user.transactions.unshift({
+    id: Date.now(),
+    service: "Admin Wallet",
+    description: "Demo balance deducted by admin",
+    amount,
+    type: "debit",
+    status: "Successful",
+    date: new Date().toISOString()
+  });
+
+  saveUsers(users);
+  alert("Demo balance deducted successfully.");
+  renderAdminUsers();
+  refreshAdminDashboard();
+}
+
+function renderAdminTransactions() {
+  if (!currentUser || currentUser.role !== "admin") return;
+
+  const users = getUsers().filter(user => user.role !== "admin");
+
+  const transactions = users.flatMap(user =>
+    (user.transactions || []).map(transaction => ({
+      ...transaction,
+      userName: user.name,
+      userEmail: user.email
+    }))
+  ).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const table = document.getElementById("adminTransactionsTable");
+
+  if (!transactions.length) {
+    table.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align:center;color:#777;">
+          No transactions yet.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  table.innerHTML = transactions.map(transaction => `
+    <tr>
+      <td>
+        ${transaction.userName}<br>
+        <small style="color:#777;">${transaction.userEmail}</small>
+      </td>
+      <td>${transaction.service}</td>
+      <td>${transaction.description}</td>
+      <td>${formatMoney(transaction.amount)}</td>
+      <td>
+        <span class="badge ${transaction.status === "Successful" ? "success" : "failed"}">
+          ${transaction.status}
+        </span>
+      </td>
+      <td>${formatDate(transaction.date)}</td>
+    </tr>
+  `).join("");
+}
+
+function openModal(title, body) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalBody").innerHTML = body;
+  document.getElementById("modalOverlay").classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").classList.add("hidden");
+  document.getElementById("modalBody").innerHTML = "";
+}
+
+window.addEventListener("click", function(event) {
+  const overlay = document.getElementById("modalOverlay");
+
+  if (event.target === overlay) {
+    closeModal();
+  }
+});
+
+window.addEventListener("load", function() {
+  const users = getUsers();
+
+  if (!users.some(user => user.email === "admin@waleeddatahub.com")) {
+    users.push({
+      id: "admin",
+      name: "WALEED DATA HUB Admin",
+      email: "admin@waleeddatahub.com",
+      password: "Admin123",
+      role: "admin",
+      balance: 0,
+      transactions: [],
+      createdAt: new Date().toISOString()
     });
 
-    loadCurrentUser();
-  </script>
+    saveUsers(users);
+  }
+
+  currentUser = getCurrentUser();
+
+  if (currentUser) {
+    openApp();
+  }
+});
+</script>
+
 </body>
-  </html>
+</html>
